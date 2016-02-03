@@ -4,13 +4,14 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const Clean = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
     app: path.join(__dirname, 'src'),
-    build: path.join(__dirname, '../build/app'),
+    build: path.join(__dirname, 'build'),
     test: path.join(__dirname, 'tests')
 };
 const APP_TITLE = 'myACC';
@@ -35,17 +36,14 @@ const common = {
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                loader: 'url?limit=25',
-                include: PATHS.app
+                loaders: ['file-loader?name=assets/images/[name].[ext]']
             },
-            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-            { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
-            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
             {
-                test: /\.html$/,
-                loader: 'raw'
-            }
+                test: /\.(woff|ttf|eot|svg|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'file-loader?name=assets/fonts/[name].[ext]'
+            },
+            { test: /\.html$/, loader: 'raw', include: PATHS.app },
+            { test: /\.jade$/, loaders: ['raw', 'jade'], include: PATHS.app }
         ],
         preLoaders: [
             {
@@ -71,25 +69,27 @@ if(TARGET === 'start' || !TARGET) {
             // parse host and port from env so this is easy
             // to customize
             host: process.env.HOST,
-            port: process.env.PORT
+            port: 8085
         },
         module: {
             loaders: [
                 // Define development specific CSS setup
-                {
-                    test: /\.css$/,
-                    loaders: ['style', 'css'],
-                    include: PATHS.app
-                }
+                { test: /\.css$/, loaders: ['style', 'css'] },
+                { test: /\.less$/, loader: 'style!css!less', include: PATHS.app }
             ]
         },
         plugins: [
             new HtmlwebpackPlugin({
-                template: './templates/index.html',
+                template: './templates/webpack.html',
                 title: APP_TITLE
             }),
             new webpack.DefinePlugin({
                 '__DEV__': JSON.stringify(JSON.parse('true'))
+            }),
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: "jquery",
+                "window.jQuery": "jquery"
             })
         ]
     });
@@ -104,23 +104,20 @@ if(TARGET === 'build' || TARGET === 'stats') {
         },
         output: {
             path: PATHS.build,
-            // Output using entry name
             filename: '[name].[chunkhash].js',
             chunkFilename: '[chunkhash].js'
         },
         module: {
             loaders: [
-                // Extract CSS during build
-                {
-                    test: /\.css$/,
-                    loader: ExtractTextPlugin.extract('style', 'css'),
-                    include: PATHS.app
-                }
+                { test: /\.less$/, loader: ExtractTextPlugin.extract('style', 'css!less') },
+                { test: /\.css$/, loaders: ['style', 'css'] }
             ]
         },
         plugins: [
             new Clean([PATHS.build], {
-                verbose: false // Don't write logs to console
+                verbose: true,
+                root: path.resolve(__dirname , '..'),
+                dry: false
             }),
             // Output extracted CSS to a file
             new ExtractTextPlugin('styles.[chunkhash].css'),
@@ -136,15 +133,29 @@ if(TARGET === 'build' || TARGET === 'stats') {
                     '__DEV__': JSON.stringify(JSON.parse('false'))
             }),
             new HtmlwebpackPlugin({
+                jsp1: '<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>',
+                jsp2: '<%@ page contentType="text/html" isELIgnored="false" import="javax.portlet.PortletSession" %>',
+                jsp3: '<%@ page import="javax.portlet.PortletRequest" %>',
+                jsp4: '<portlet:defineObjects/>',
                 title: APP_TITLE,
-                filename: '../WEB-INF/jsp/index.jsp',
-                template: './templates/index.html',
+                filename: './WEB-INF/jsp/index.jsp',
+                template: './templates/production.html'
+            }),
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: "jquery",
+                "window.jQuery": "jquery"
             }),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false
                 }
-            })
+            }),
+            new CopyWebpackPlugin([
+                { from: './src/assets/fonts', to: './assets/fonts' },
+                { from: './src/assets/images', to: './assets/images' },
+                { from: './src/assets/WEB-INF', to: './WEB-INF' }
+            ])
         ]
     });
 }

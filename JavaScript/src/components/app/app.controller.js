@@ -1,9 +1,9 @@
-export default class HomeController {
+export default class AppController {
     constructor() {
         this.name = 'World';
     }
 
     changeName() {
-        this.name = 'angular-tips';
+        this.name = 'Angular-WebPack';
     }
 }
