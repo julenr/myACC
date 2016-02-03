@@ -4,7 +4,7 @@ export default function routes($stateProvider) {
             url: '/businessCustomer',
             menu: 'Business Customer',
             template: require('./businessCustomer.jade'),
-            controller: 'businessCustomer.Controller',
+            controller: 'BusinessCustomerController',
             controllerAs: 'businessCustomer'
         });
 }

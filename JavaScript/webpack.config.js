@@ -43,7 +43,7 @@ const common = {
                 loader: 'file-loader?name=assets/fonts/[name].[ext]'
             },
             { test: /\.html$/, loader: 'raw', include: PATHS.app },
-            { test: /\.jade$/, loaders: ['raw', 'jade'], include: PATHS.app }
+            { test: /\.jade$/, loader: 'jade' }
         ],
         preLoaders: [
             {
@@ -138,7 +138,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
                 jsp3: '<%@ page import="javax.portlet.PortletRequest" %>',
                 jsp4: '<portlet:defineObjects/>',
                 title: APP_TITLE,
-                filename: './WEB-INF/jsp/index.jsp',
+                filename: '../WEB-INF/jsp/index.jsp',
                 template: './templates/production.html'
             }),
             new webpack.ProvidePlugin({
@@ -154,7 +154,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
             new CopyWebpackPlugin([
                 { from: './src/assets/fonts', to: './assets/fonts' },
                 { from: './src/assets/images', to: './assets/images' },
-                { from: './src/assets/WEB-INF', to: './WEB-INF' }
+                { from: './src/assets/WEB-INF', to: '../WEB-INF' }
             ])
         ]
     });

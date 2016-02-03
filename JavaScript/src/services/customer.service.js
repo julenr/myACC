@@ -33,6 +33,16 @@ class CustomerService {
     return this.$http.get(`/json/customer/${id}`)
         .then(function(data) {
           return data.data;
+        })
+        .catch(function (response) {
+            if(__DEV__) {
+                return {
+                    firstName:'Fake Name',
+                    address: {
+                        addressLine1: 'Fake address'
+                    }
+                };
+            }
         });
   }
 }

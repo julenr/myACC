@@ -1,9 +1,9 @@
 export default class AppController {
     constructor() {
-        this.name = 'World';
+        this.name = 'ACC';
     }
 
     changeName() {
-        this.name = 'Angular-WebPack';
+        this.name = 'ES6-AngularJS-WebPack World';
     }
 }

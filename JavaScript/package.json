@@ -5,7 +5,7 @@
   "scripts": {
     "stats": "webpack --profile --json > stats.json",
     "build": "webpack --display-error-details",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --inline --hot",
     "test": "karma start",
     "tdd": "karma start --auto-watch --no-single-run"
   },
@@ -57,6 +57,7 @@
     "null-loader": "^0.1.1",
     "phantomjs": "^1.9.19",
     "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.7.3"

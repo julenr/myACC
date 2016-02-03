@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<portlet-app
+    xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd 
+                                 http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+
+    <portlet>
+        <description>MyACCProviderPortlet that displays an angular application.</description>
+        <portlet-name>MyACCProviderPortlet</portlet-name>
+        <display-name>MyACCProviderPortlet</display-name>
+
+        <portlet-class>nz.co.acc.myacc.MyACCInvoicingPortlet</portlet-class>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+
+        <supported-locale>en</supported-locale>
+
+        <portlet-info>
+            <title>MyACCProviderPortlet</title>
+            <short-title>MyACCProviderPortlet</short-title>
+            <keywords>MyACCProviderPortlet</keywords>
+        </portlet-info>
+    </portlet>
+</portlet-app>

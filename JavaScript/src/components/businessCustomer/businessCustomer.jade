@@ -1,36 +1,36 @@
 h1.page-header Business Customer
 .container
-  form(name='customerDetailsForm')
+  form(name='detailsForm')
     fieldset.form-group
       label First Name:
-      input.form-control(ng-model='vm.customerDetails.firstName', type='text', placeholder='First Name', title='First Name', required='')
+      input.form-control(ng-model='businessCustomer.details.firstName', type='text', placeholder='First Name', title='First Name', required='')
     fieldset.form-group
       label Middle Name(s):
-      input.form-control(ng-model='vm.customerDetails.middleName', type='text', placeholder='Middle Name', title='Middle Name')
+      input.form-control(ng-model='businessCustomer.details.middleName', type='text', placeholder='Middle Name', title='Middle Name')
     fieldset.form-group
       label Surname:
-      input.form-control(ng-model='vm.customerDetails.surname', type='text', placeholder='Surname', title='Surname', required='')
+      input.form-control(ng-model='businessCustomer.details.surname', type='text', placeholder='Surname', title='Surname', required='')
     fieldset.form-group
       label Email:
-      input.form-control(ng-model='vm.customerDetails.email', type='email', placeholder='jimmyDean@example.org', title='Email', required='')
-    div(ng-show='vm.customerDetails.address')
+      input.form-control(ng-model='businessCustomer.details.email', type='email', placeholder='jimmyDean@example.org', title='Email', required='')
+    div(ng-show='businessCustomer.details.address')
       h4 Address Details
       fieldset.form-group
         label Address Line 1:
-        input.form-control(ng-model='vm.customerDetails.address.addressLine1', type='text', placeholder='Street Address', title='Address Line 1', required='')
+        input.form-control(ng-model='businessCustomer.details.address.addressLine1', type='text', placeholder='Street Address', title='Address Line 1', required='')
       fieldset.form-group
         label Suburb:
-        input.form-control(ng-model='vm.customerDetails.address.suburb', type='text', placeholder='Suburb (e.g. Thorndon)', title='Suburb')
+        input.form-control(ng-model='businessCustomer.details.address.suburb', type='text', placeholder='Suburb (e.g. Thorndon)', title='Suburb')
       fieldset.form-group
         label City:
-        input.form-control(ng-model='vm.customerDetails.address.city', type='text', placeholder='City (e.g. Wellington)', title='City', required='')
-    div(ng-show='vm.customerDetails.contactDetails.length')
+        input.form-control(ng-model='businessCustomer.details.address.city', type='text', placeholder='City (e.g. Wellington)', title='City', required='')
+    div(ng-show='businessCustomer.details.contactDetails.length')
       h4 Contact Details
       .list-group.span2
-        .list-group-item(ng-repeat='contact in vm.customerDetails.contactDetails')
+        .list-group-item(ng-repeat='contact in businessCustomer.details.contactDetails')
           fieldset.form-group
             label {{contact.contactType}}
             input.form-control(ng-model='contact.contactValue', type='text', placeholder='Contact Value', title='Contact Value', required='')
     // Form submit button (only shows once a field in the form has been touched)
-    fieldset.form-group(ng-show='customerDetailsForm.$dirty')
+    fieldset.form-group(ng-show='detailsForm.$dirty')
       input.btn.btn-primary.pull-right(type='submit', value='Update details')
