@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <!--[if lt IE 7 ]> <html lang="en" class="ie6 no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+    <!--[if IE 7 ]>    <html lang="en" class="ie7 no-js lt-ie10 lt-ie9 lt-ie8" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+    <!--[if IE 8 ]>    <html lang="en" class="ie8 no-js lt-ie10 lt-ie9" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+    <!--[if IE 9 ]>    <html lang="en" class="ie9 no-js lt-ie10" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+    <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title><%= htmlWebpackPlugin.options.title || 'Webpack App'%></title>
+
+        <% if (htmlWebpackPlugin.files.favicon) { %>
+        <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon %>">
+        <% } %>
+        <% if (htmlWebpackPlugin.options.mobile) { %>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <% } %>
+
+        <% for (var css in htmlWebpackPlugin.files.css) { %>
+        <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+        <% } %>
+
+        <script>
+            (function(){
+                var ef = function(){};
+                window.console = window.console || {log:ef,warn:ef,error:ef,dir:ef};
+            }());
+        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
+
+        <% if (htmlWebpackPlugin.options.baseHref) { %>
+        <base href="\" />
+        <% } %>
+    </head>
+    <body>
+        <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
+            <div id='noscript'>
+                <div class="message" id="javascript-disabled">
+                    <div class="page-wrapper">
+                        <h2 class="title">Warning! JavaScript required.</h2>
+                        <p>To use this website you need to have JavaScript enabled. Without these features parts of the site may not function correctly.</p>
+                    </div>
+                </div>
+            </div>
+            <script>document.getElementById('noscript').style.display='none';</script>
+            <!--[if lte IE 9]>
+            <div class="message" id="unsupported-browser">
+                <div class="page-wrapper">
+                    <h2 class="title">Warning! Unsupported browser.</h2>
+                    <p>We have detected that you are using an unsupported browser, we cannot guarantee that this website will look and function as intended on your browser. <a href="https://www.google.com/search?q=web+browser">Upgrade your browser now</a>.</p>
+                </div>
+            </div>
+            <![endif]-->
+        <% } %>
+
+        <div data-nav-bar title="myACC"></div>
+        <div class="header-container"></div>
+        <div class="container">
+            <div class="row"></div>
+            <ui-view></ui-view>
+        </div>
+
+        <% if (htmlWebpackPlugin.options.window) { %>
+        <script>
+            <% for (var varName in htmlWebpackPlugin.options.window) { %>
+            window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+            <% } %>
+        </script>
+        <% } %>
+
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+        <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+        <% } %>
+
+        <% if (htmlWebpackPlugin.options.devServer) { %>
+        <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
+        <% } %>
+    </body>
+</html>
