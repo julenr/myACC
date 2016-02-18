@@ -1,5 +1,30 @@
-<div id="home-header" class="jumbotron">
-    <h1>Hello, {{root.name}}</h1>
-</div>
 
-<button class="btn btn-primary" ng-click="root.changeName()">Change</button>
+    <form ng-submit="root.onSubmit()" validate>
+        <formly-form model="root.invoiceModel" fields="root.invoiceFields">
+            <button type="submit" class="btn btn-primary submit-button">Create new invoice</button>
+        </formly-form>
+    </form>
+    </br>
+
+    <!-- Fields to test Local and Session Storage -->
+    <label for="session-input-session">This input keeps its value in Session Storage</label>
+    <input id="session-input-session"
+           type="text"
+           class="form-control"
+           placeholder="Session storage input"
+           aria-describedby="Session storage input"
+           ng-model="root.sessionValue"
+           ng-keyup="root.saveSessionStorage()"
+    >
+    <label for="session-input-local">This input keeps its value in Local Storage</label>
+    <input id="session-input-local"
+           type="text"
+           class="form-control"
+           placeholder="Local storage input"
+           aria-describedby="Local storage input"
+           ng-model="root.localValue"
+           ng-keyup="root.saveLocalStorage()"
+    >
+<br/>
+<button class="btn btn-primary" ng-click="root.clearSessionStorage()">Clear Session Storage</button>
+<button class="btn btn-primary" ng-click="root.clearLocalStorage()">Clear Local Storage</button>

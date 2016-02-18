@@ -1,11 +1,11 @@
 
-        
-        <base href="<%= request.getContextPath() %>" />
-        
-        
-            <link href="<%= request.getContextPath() %>/build/styles.8e6185d2b79213b13719.css" rel="stylesheet">
-        
-        
+        <% if (htmlWebpackPlugin.options.baseHref) { %>
+        <base href="<%= htmlWebpackPlugin.options.baseHref %>" />
+        <% } %>
+        <% for (var css in htmlWebpackPlugin.files.css) { %>
+            <link href="<%= htmlWebpackPlugin.options.addBaseHrefToScripts + htmlWebpackPlugin.files.css[css].replace(/^.*(\\|\/|\:)/, '') %>" rel="stylesheet">
+        <% } %>
+        <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
             <div id='noscript'>
                 <div class="message" id="javascript-disabled">
                     <div class="page-wrapper">
@@ -23,25 +23,21 @@
                 </div>
             </div>
             <![endif]-->
-        
+        <% } %>
 
         <!--<div data-nav-bar title="myACC"></div>-->
         <div class="container">
             <ui-view></ui-view>
         </div>
 
-        
+        <% if (htmlWebpackPlugin.options.window) { %>
             <script>
-                
-                window['env'] = {"apiHost":"<%= request.getContextPath() %>"};
-                
+                <% for (var varName in htmlWebpackPlugin.options.window) { %>
+                window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+                <% } %>
             </script>
-        
+        <% } %>
 
-        
-            <script src="<%= request.getContextPath() %>/build/manifest.1a0bd507dd39a12dd10a.js"></script>
-        
-            <script src="<%= request.getContextPath() %>/build/vendor.20d6de34157c576c28f9.js"></script>
-        
-            <script src="<%= request.getContextPath() %>/build/app.8e6185d2b79213b13719.js"></script>
-        
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+            <script src="<%= htmlWebpackPlugin.options.addBaseHrefToScripts + htmlWebpackPlugin.files.chunks[chunk].entry.replace(/^.*(\\|\/|\:)/, '') %>"></script>
+        <% } %>

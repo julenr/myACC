@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import 'angular-material/angular-material.css';
 import './styles/screen.less';
 
 import "babel-polyfill";
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
-import material from 'angular-material';
+import formly from 'angular-formly';
+import formlyTemplateBootstrap from 'angular-formly-templates-bootstrap';
+
+import ngRedux from 'ng-redux';
 
 import routing from './index.config'
 import root from './components/root';
@@ -13,20 +15,19 @@ import businessCustomer from './components/businessCustomer';
 import navBar from './components/navbar';
 import customerService from './services/customer';
 
-
 angular
   .element(document)
   .ready(function (){
-    let appName = 'myAccApp';
-    let body = document.getElementsByTagName("body")[0];
+    const appName = 'myAccApp';
+    const body = document.getElementsByTagName("body")[0];
 
-    let app = angular.module(appName,
+    const app = angular.module(appName,
       [
         uirouter,
-        root,
-        navBar,
-        businessCustomer,
-        customerService
+        formly,
+        formlyTemplateBootstrap,
+        ngRedux,
+        root
       ])
       .config(routing);
 

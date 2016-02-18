@@ -1,9 +1,5 @@
 <!doctype html>
 <html>
-    <!--[if lt IE 7]>      <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-    <!--[if IE 7]>         <html class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
-    <!--[if IE 8]>         <html class="no-js lt-ie10 lt-ie9"> <![endif]-->
-    <!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
     <head>
         <% if (htmlWebpackPlugin.files.favicon) { %>
         <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon %>">
@@ -37,10 +33,9 @@
           <![endif]-->
       <% } %>
 
-      <div data-nav-bar title="myACC"></div>
-      <div class="header-container"></div>
+      <!--<div data-nav-bar title="myACC"></div>-->
       <div class="container">
-          <div class="row"></div>
+          <br/>
           <ui-view></ui-view>
       </div>
 

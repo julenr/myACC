@@ -12,6 +12,7 @@ const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'angular'),
   build: path.join(__dirname, 'build'),
+  'build-portal': path.join(__dirname, 'build'),
   develop: path.join(__dirname, 'build-develop'),
   test: path.join(__dirname, 'angular')
 };
@@ -81,6 +82,11 @@ if(TARGET === 'start' || !TARGET) {
       ]
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+      }),
       new HtmlwebpackPlugin({
         template: './templates/index.webpack.ejs',
         title: APP_TITLE,
@@ -94,12 +100,17 @@ if(TARGET === 'start' || !TARGET) {
       }),
       new webpack.DefinePlugin({
         '__DEV__': JSON.stringify(JSON.parse('true'))
-      })
+      }),
+      new CopyWebpackPlugin([
+        { from: PATHS.app + '/assets/fonts', to: './assets/fonts' },
+        { from: PATHS.app + '/assets/images', to: './assets/images' },
+        { from: PATHS.app + '/assets/js', to: './assets/js' }
+      ])
     ]
   });
 }
 
-if(TARGET === 'build' || TARGET === 'stats') {
+if(TARGET === 'build' || TARGET === 'build-portal') {
   module.exports = merge(common, {
     // Define entry points needed for splitting
     entry: {
@@ -118,6 +129,11 @@ if(TARGET === 'build' || TARGET === 'stats') {
       ]
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+      }),
       new Clean([PATHS.build], {
         verbose: true,
         dry: false
@@ -137,7 +153,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
       }),
       new HtmlwebpackPlugin({
         inject: false,
-        template: './templates/index.production.ejs',
+        template: (TARGET === 'build') ? './templates/index.portal.ejs': './templates/index.production.ejs',
         filename: '../WEB-INF/jsp/index.jsp',
         jsp1: '<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>',
         jsp2: '<%@ page contentType="text/html" isELIgnored="false" import="javax.portlet.PortletSession" %>',
@@ -200,10 +216,15 @@ if(TARGET === 'develop') {
     module: {
       loaders: [
         { test: /\.less$/, loader: ExtractTextPlugin.extract('style', 'css!less'), include: PATHS.app },
-        { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css'), include: PATHS.app }
+        { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') }
       ]
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+      }),
       new Clean([PATHS.develop], {
         verbose: true,
         dry: false
@@ -269,6 +290,11 @@ if(TARGET === 'test' || TARGET === 'tdd') {
       ]
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+      }),
       new webpack.DefinePlugin({'__DEV__': JSON.stringify(JSON.parse('true'))}),
       new ExtractTextPlugin('styles.[chunkhash].css')
     ]
