@@ -1,43 +1,137 @@
+<%= htmlWebpackPlugin.options.jsp1 %>
+<%= htmlWebpackPlugin.options.jsp2 %>
+<%= htmlWebpackPlugin.options.jsp3 %>
+<%= htmlWebpackPlugin.options.jsp4 %>
 
-        <% if (htmlWebpackPlugin.options.baseHref) { %>
-        <base href="<%= htmlWebpackPlugin.options.baseHref %>" />
-        <% } %>
-        <% for (var css in htmlWebpackPlugin.files.css) { %>
-            <link href="<%= htmlWebpackPlugin.options.addBaseHrefToScripts + htmlWebpackPlugin.files.css[css].replace(/^.*(\\|\/|\:)/, '') %>" rel="stylesheet">
-        <% } %>
-        <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
-            <div id='noscript'>
-                <div class="message" id="javascript-disabled">
-                    <div class="page-wrapper">
-                        <h2 class="title">Warning! JavaScript required.</h2>
-                        <p>To use this website you need to have JavaScript enabled. Without these features parts of the site may not function correctly.</p>
-                    </div>
-                </div>
-            </div>
-            <script>document.getElementById('noscript').style.display='none';</script>
-            <!--[if lt IE 9]>
-            <div class="message" id="unsupported-browser">
-                <div class="page-wrapper">
-                    <h2 class="title">Warning! Unsupported browser.</h2>
-                    <p>We have detected that you are using an unsupported browser, we cannot guarantee that this website will look and function as intended on your browser. <a href="https://www.google.com/search?q=web+browser">Upgrade your browser now</a>.</p>
-                </div>
-            </div>
-            <![endif]-->
-        <% } %>
+<!DOCTYPE html>
+<html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 no-js lt-ie10 lt-ie9 lt-ie8" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8 no-js lt-ie10 lt-ie9" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9 no-js lt-ie10" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title><%= htmlWebpackPlugin.options.title || 'Webpack App'%></title>
 
-        <!--<div data-nav-bar title="myACC"></div>-->
-        <div class="container">
-            <ui-view></ui-view>
+    <% if (htmlWebpackPlugin.files.favicon) { %>
+    <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon %>">
+    <% } %>
+    <% if (htmlWebpackPlugin.options.mobile) { %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% } %>
+
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.options.addBaseHrefToScripts + htmlWebpackPlugin.files.css[css].replace(/^.*(\\|\/|\:)/, '') %>" rel="stylesheet">
+    <% } %>
+
+    <script>
+        (function(){
+            var ef = function(){};
+            window.console = window.console || {log:ef,warn:ef,error:ef,dir:ef};
+        }());
+    </script>
+
+    <% if (htmlWebpackPlugin.options.baseHref) { %>
+    <base href="<%= htmlWebpackPlugin.options.baseHref %>" />
+    <% } %>
+
+    <% if (htmlWebpackPlugin.options.IBMAnalytics) { %>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.options.IBMAnalytics.eluminate %>"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.options.addBaseHrefToScripts %>assets/js/cmcustom.js"></script>
+    <script type="text/javascript">
+        cmSetClientID(
+                "<%= htmlWebpackPlugin.options.IBMAnalytics.clientID %>",
+                <%= htmlWebpackPlugin.options.IBMAnalytics.dataCollectionMethod %>,
+                "<%= htmlWebpackPlugin.options.IBMAnalytics.dataCollectionDomain %>",
+                "<%= htmlWebpackPlugin.options.IBMAnalytics.cookieDomain %>"
+        );
+    </script>
+    <% } %>
+</head>
+<body>
+<% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
+<div id='noscript'>
+    <div class="message" id="javascript-disabled">
+        <div class="page-wrapper">
+            <h2 class="title">Warning! JavaScript required.</h2>
+            <p>To use this website you need to have JavaScript enabled. Without these features parts of the site may not function correctly.</p>
         </div>
+    </div>
+</div>
+<script>document.getElementById('noscript').style.display='none';</script>
+<!--[if lt IE 9]>
+<div class="message" id="unsupported-browser">
+    <div class="page-wrapper">
+        <h2 class="title">Warning! Unsupported browser.</h2>
+        <p>We have detected that you are using an unsupported browser, we cannot guarantee that this website will look and function as intended on your browser. <a href="https://www.google.com/search?q=web+browser">Upgrade your browser now</a>.</p>
+    </div>
+</div>
+<![endif]-->
+<% } %>
 
-        <% if (htmlWebpackPlugin.options.window) { %>
-            <script>
-                <% for (var varName in htmlWebpackPlugin.options.window) { %>
-                window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
-                <% } %>
-            </script>
-        <% } %>
+<!--<div data-nav-bar title="myACC"></div>-->
+<div class="container">
+    <br/>
+    <ui-view></ui-view>
+</div>
 
-        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-            <script src="<%= htmlWebpackPlugin.options.addBaseHrefToScripts + htmlWebpackPlugin.files.chunks[chunk].entry.replace(/^.*(\\|\/|\:)/, '') %>"></script>
-        <% } %>
+<% if (htmlWebpackPlugin.options.window) { %>
+<script>
+    <% for (var varName in htmlWebpackPlugin.options.window) { %>
+    window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+    <% } %>
+</script>
+<% } %>
+
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+<script src="<%= htmlWebpackPlugin.options.addBaseHrefToScripts + htmlWebpackPlugin.files.chunks[chunk].entry.replace(/^.*(\\|\/|\:)/, '') %>"></script>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.devServer) { %>
+<script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.googleAnalytics.active) { %>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+
+    <% if (htmlWebpackPlugin.options.googleAnalytics.trackingId) { %>
+    ga('create', '<%= htmlWebpackPlugin.options.googleAnalytics.trackingId%>', 'auto');
+    <% } else { throw new Error("html-webpack-template requires googleAnalytics.trackingId config"); }%>
+
+    <% if (htmlWebpackPlugin.options.googleAnalytics.pageViewOnLoad) { %>
+    ga('send', 'pageview');
+    <% } %>
+</script>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.IBMAnalytics) { %>
+<script type="text/javascript">
+    cmCreatePageviewTag(
+            '<%= htmlWebpackPlugin.options.IBMAnalytics.pageID %>'
+    <% if (htmlWebpackPlugin.options.IBMAnalytics.categoryID) { %>
+    <%=",'" + htmlWebpackPlugin.options.IBMAnalytics.categoryID %>'
+    <% } %>
+    <% if (htmlWebpackPlugin.options.IBMAnalytics.searchTerm) { %>
+    <%=",'" + htmlWebpackPlugin.options.IBMAnalytics.searchTerm %>'
+    <% } %>
+    <% if (htmlWebpackPlugin.options.IBMAnalytics.searchResults) { %>
+    <%=",'" + htmlWebpackPlugin.options.IBMAnalytics.searchResults %>'
+    <% } %>
+    <% if (htmlWebpackPlugin.options.IBMAnalytics.attributeString) { %>
+    <%=",'" + htmlWebpackPlugin.options.IBMAnalytics.attributeString %>'
+    <% } %>
+    <% if (htmlWebpackPlugin.options.IBMAnalytics.extraFields) { %>
+    <%=",'" + htmlWebpackPlugin.options.IBMAnalytics.extraFields %>'
+    <% } %>
+    );
+</script>
+<% } %>
+
+</body>
+</html>

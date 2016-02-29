@@ -1,4 +1,5 @@
 import template from './root.template.html';
+
 export default function routes($stateProvider) {
   'ngInject';
   $stateProvider
@@ -8,4 +9,5 @@ export default function routes($stateProvider) {
       controller: 'RootController',
       controllerAs: 'root'
     });
+
 }

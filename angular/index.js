@@ -1,15 +1,21 @@
-import 'bootstrap/dist/css/bootstrap.css';
+if(__BOOTSTRAP__) { //Only add Bootstrap for local development. WebSphere already has added it
+  require ('bootstrap/dist/css/bootstrap.css');
+}
 import './styles/screen.less';
+import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
 
-import "babel-polyfill";
+import 'babel-polyfill';
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import formly from 'angular-formly';
+import ngAnimate from 'angular-animate';
+import ngMessages from 'angular-messages';
 import formlyTemplateBootstrap from 'angular-formly-templates-bootstrap';
-
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap-datepicker';
 import ngRedux from 'ng-redux';
 
-import routing from './index.config'
+import routing from './index.config';
 import root from './components/root';
 import businessCustomer from './components/businessCustomer';
 import navBar from './components/navbar';
@@ -20,11 +26,12 @@ angular
   .ready(function (){
     const appName = 'myAccApp';
     const body = document.getElementsByTagName("body")[0];
-
     const app = angular.module(appName,
       [
         uirouter,
         formly,
+        ngAnimate,
+        ngMessages,
         formlyTemplateBootstrap,
         ngRedux,
         root

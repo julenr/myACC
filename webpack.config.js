@@ -65,13 +65,16 @@ if(TARGET === 'start' || !TARGET) {
       historyApiFallback: true,
       inline: true,
       progress: true,
+      watchOptions: {
+        poll: 1000
+      },
 
       // display only errors to reduce the amount of output
       stats: 'errors-only',
 
       // parse host and port from env so this is easy
       // to customize
-      host: process.env.HOST,
+      host: '10.100.65.48',
       port: 8085
     },
     module: {
@@ -82,6 +85,7 @@ if(TARGET === 'start' || !TARGET) {
       ]
     },
     plugins: [
+      new webpack.HotModuleReplacementPlugin(),
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
@@ -99,13 +103,9 @@ if(TARGET === 'start' || !TARGET) {
         }
       }),
       new webpack.DefinePlugin({
-        '__DEV__': JSON.stringify(JSON.parse('true'))
-      }),
-      new CopyWebpackPlugin([
-        { from: PATHS.app + '/assets/fonts', to: './assets/fonts' },
-        { from: PATHS.app + '/assets/images', to: './assets/images' },
-        { from: PATHS.app + '/assets/js', to: './assets/js' }
-      ])
+        '__DEV__': JSON.stringify(JSON.parse('true')),
+        '__BOOTSTRAP__': JSON.stringify(JSON.parse('true'))
+      })
     ]
   });
 }
@@ -149,7 +149,8 @@ if(TARGET === 'build' || TARGET === 'build-portal') {
         'process.env': {
           'NODE_ENV': JSON.stringify('production')
         },
-        '__DEV__': JSON.stringify(JSON.parse('false'))
+        '__DEV__': JSON.stringify(JSON.parse('false')),
+        '__BOOTSTRAP__': JSON.stringify(JSON.parse('false')) // Bootstrap is already added so don't duplicated
       }),
       new HtmlwebpackPlugin({
         inject: false,
@@ -240,7 +241,8 @@ if(TARGET === 'develop') {
         'process.env': {
           'NODE_ENV': JSON.stringify('production')
         },
-        '__DEV__': JSON.stringify(JSON.parse('false'))
+        '__DEV__': JSON.stringify(JSON.parse('false')),
+        '__BOOTSTRAP__': JSON.stringify(JSON.parse('true'))
       }),
       new HtmlwebpackPlugin({
         title: APP_TITLE,

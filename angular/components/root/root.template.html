@@ -1,12 +1,14 @@
 
     <form ng-submit="root.onSubmit()" validate>
-        <formly-form model="root.invoiceModel" fields="root.invoiceFields">
-            <button type="submit" class="btn btn-primary submit-button">Create new invoice</button>
+        <formly-form model="root.invoiceModel" fields="root.invoiceFields" options="root.options">
+            <button id='submit-button' type="submit" class="btn btn-primary submit-button">Submit invoice to ACC</button>
         </formly-form>
     </form>
     </br>
 
-    <!-- Fields to test Local and Session Storage -->
+
+    <!-- Fields to test Local and Session Storage
+    <br/><br/><br/><br/>
     <label for="session-input-session">This input keeps its value in Session Storage</label>
     <input id="session-input-session"
            type="text"
@@ -28,3 +30,4 @@
 <br/>
 <button class="btn btn-primary" ng-click="root.clearSessionStorage()">Clear Session Storage</button>
 <button class="btn btn-primary" ng-click="root.clearLocalStorage()">Clear Local Storage</button>
+    -->

@@ -6,7 +6,7 @@
     "build": "webpack --display-error-details",
     "build-portal": "webpack --display-error-details",
     "develop": "webpack --display-error-details",
-    "start": "webpack-dev-server --inline --hot",
+    "start": "webpack-dev-server",
     "test": "karma start",
     "tdd": "karma start --auto-watch --no-single-run"
   },
@@ -19,13 +19,17 @@
   "author": "Julen Rojo",
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-animate": "^1.5.0",
     "angular-formly": "^7.5.0",
     "angular-formly-templates-bootstrap": "^6.3.0",
+    "angular-messages": "^1.5.0",
     "angular-ui-router": "^0.2.17",
     "api-check": "^7.5.5",
     "babel-polyfill": "^6.3.14",
     "bootstrap": "^3.3.6",
+    "bootstrap-datepicker": "^1.6.0",
     "jquery": "^2.2.0",
+    "moment": "^2.11.2",
     "ng-redux": "^3.3.3"
   },
   "devDependencies": {

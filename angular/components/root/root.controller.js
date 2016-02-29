@@ -1,5 +1,8 @@
+import formFields from './form.fields';
+import moment from 'moment';
 
 export default class RootController {
+  /*@ngInject*/
   constructor() {
     this.sessionValue = (sessionStorage.getItem('ACC')) ?
       JSON.parse(sessionStorage.getItem('ACC'))
@@ -11,21 +14,26 @@ export default class RootController {
       :
       'Initial local storage value';
 
-    this.invoiceModel = {};
-    this.invoiceFields = [
-      {
-        key: 'vendorID',
-        type: 'input',
-        templateOptions: {
-          type: 'text',
-          label: 'ACC Vendor ID',
-          placeholder: 'Enter your ACC vendor ID',
-          required: true,
-          focus: true,
-          maxlength: 12
+    this.invoiceModel = {
+      invoiceDate: moment().format('DD/MM/YYYY'),
+      invoiceNumber: 'ACC567815',
+      DOB: '',
+      treatmentDetails: [
+        {
+          investmentName:'abc',
+          investmentDate:(new Date()).toDateString(),
+          stockIdentifier:''
+        },
+        {
+          investmentName:'abc',
+          investmentDate:(new Date()).toDateString(),
+          stockIdentifier:''
         }
-      }
-    ];
+      ]
+    };
+    this.invoiceFields = formFields;
+    this.options = {};
+
   }
 
   onSubmit(){
