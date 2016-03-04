@@ -11,19 +11,22 @@ export default angular.module('root', [uirouter])
   .config(routing)
   .run(function(formlyConfig, formlyValidationMessages) {
     'ngInject';
+    formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = 'fc.$touched || form.$submitted';
+    formlyValidationMessages.addStringMessage('required', 'This field is required');
+
     formlyConfig.setWrapper({
       name: 'validation',
       types: ['input', 'datePicker', 'textarea'],
       template: `<formly-transclude></formly-transclude>
-        <div class="my-messages" ng-messages="fc.$error" ng-if="options.formControl.$touched">
-          <div id="{{options.id + 'error'}}" class="some-message" ng-message="{{::name}}" ng-repeat="(name, message) in ::options.validation.messages">
+        <div class="my-messages" ng-messages="fc.$error" ng-if="form.$submitted || options.formControl.$touched">
+          <div id="{{options.id + 'error'}}" class="some-message" ng-message="{{ ::name }}" ng-repeat="(name, message) in ::options.validation.messages">
             {{message(fc.$viewValue, fc.$modelValue, this)}}
           </div>
         </div>
-        <div id="{{options.id + 'info'}}" class="some-message info" ng-show="options.data.showInfo">{{to.info}}</div>
+        <div id="{{options.id + 'info'}}" class="info" ng-show="options.data.showInfo"><div class="some-message info">{{to.info}}</div></div>
         `
     });
-    formlyValidationMessages.addStringMessage('required', 'This field is required');
+
     formlyConfig.setType({
       name: 'datePicker',
       defaultOptions: {
@@ -37,9 +40,10 @@ export default angular.module('root', [uirouter])
         validators: {
           checkValidDate: {
             expression: function(viewValue = '', modelValue, scope) {
+              if(viewValue === '') return true;
               return (moment(viewValue, validDateFormats, true).isValid()) ? true : false;
             },
-            message: '"not a valid date"'
+            message: '"The date must be a valid \'dd/mm/yyyy\' format"'
           }
         }
       },

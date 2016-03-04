@@ -19,6 +19,11 @@
   position: absolute;
   width: 100%;
   color: #a94442;
+  background-color: white;
+}
+
+.info {
+  transition: .2s linear all;
 }
 
 .some-message.info{
@@ -50,4 +55,24 @@
 .some-message.ng-leave-active {
   opacity: 0;
   top: -10px;
+}
+
+#claimNumber {
+  text-transform: uppercase;
+}
+
+#claimNumber::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  text-transform: none !important;
+}
+#claimNumber:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  text-transform: none !important;
+}
+#claimNumber::-moz-placeholder { /* Mozilla Firefox 19+ */
+  text-transform: none !important;
+}
+#claimNumber:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  text-transform: none !important;
+}
+#claimNumber:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+  text-transform: none !important;
 }

@@ -37,7 +37,7 @@ export default class RootController {
   }
 
   onSubmit(){
-    console.info(this.invoiceModel);
+    console.log('MODEL ', this.invoiceModel);
   }
 
   clearSessionStorage(){

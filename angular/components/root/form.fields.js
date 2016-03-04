@@ -23,8 +23,8 @@ const formFields = [
           focus: true,
           minlength: 1,
           maxlength: 12,
-          onKeypress: function ($viewValue = '', $modelValue, scope){
-            if($viewValue.length === scope.options.templateOptions.maxlength){
+          onKeypress: function ($viewValue = '', $modelValue, scope, key){
+            if(key.charCode && $viewValue.length === scope.options.templateOptions.maxlength){
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -57,8 +57,8 @@ const formFields = [
           placeholder: 'Enter your ACC Contract Number',
           required: false,
           maxlength: 8,
-          onKeypress: function ($viewValue = '', $modelValue, scope) {
-            if ($viewValue.length === scope.options.templateOptions.maxlength) {
+          onKeypress: function ($viewValue = '', $modelValue, scope, key) {
+            if (key.charCode && $viewValue.length === scope.options.templateOptions.maxlength) {
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -101,8 +101,8 @@ const formFields = [
           required: true,
           minlength: 1,
           maxlength: 20,
-          onKeydown: function ($viewValue = '', $modelValue, scope) {
-            if($viewValue.length === scope.options.templateOptions.maxlength ) {
+          onKeypress: function ($viewValue = '', $modelValue, scope, key) {
+            if(key.charCode && $viewValue.length === scope.options.templateOptions.maxlength ) {
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -136,8 +136,8 @@ const formFields = [
           required: true,
           minlength: 1,
           maxlength: 25,
-          onKeypress: function($viewValue = '', $modelValue, scope) {
-            if($viewValue.length === scope.options.templateOptions.maxlength ) {
+          onKeypress: function($viewValue = '', $modelValue, scope, key) {
+            if(key.charCode && $viewValue.length === scope.options.templateOptions.maxlength ) {
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -168,7 +168,11 @@ const formFields = [
           type: 'text',
           required: true,
           label: 'Date of Birth',
-          value: moment().format('DD/MM/YYYY')
+          value: moment().format('DD/MM/YYYY'),
+          onChange: function (viewValue = '', modelValue, scope) {
+            console.log('DOB CHANGES');
+            scope.form.DOA.$validate();
+          }
         },
         validators: {
           checkFutureDate: {
@@ -197,8 +201,11 @@ const formFields = [
           required: false,
           minlength: 1,
           maxlength: 7,
-          onKeypress: function ($viewValue = '', $modelValue, scope) {
-            if ($viewValue.length === scope.options.templateOptions.maxlength) {
+          onKeypress: function ($viewValue = '', $modelValue, scope, key) {
+            const field = scope.form[scope.name];
+            const realViewValue = field.$viewValue || '';
+            const showInfo = (field.$untouched || (field.$touched && field.$valid));
+            if(showInfo && key.charCode && realViewValue.length === scope.options.templateOptions.maxlength) {
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -222,15 +229,15 @@ const formFields = [
               if (viewValue === '') return true;
               return /([a-zA-Z]){3}([0-9]){4}/.test(value);
             },
-            message: '$viewValue + " is not a valid NHI"'
+            message: '"Value entered is not a valid NHI"'
           }
         },
         data: {showInfo: false},
         ngModelElAttrs: {'maxlength': '7'}
       },
       {
-        id: 'ACCClaimNumber',
-        key: 'ACCClaimNumber',
+        id: 'claimNumber',
+        key: 'claimNumber',
         type: 'input',
         className: 'col-xs-12',
         templateOptions: {
@@ -240,8 +247,11 @@ const formFields = [
           required: true,
           minlength: 1,
           maxlength: 12,
-          onKeypress: function ($viewValue = '', $modelValue, scope) {
-            if ($viewValue.length === scope.options.templateOptions.maxlength) {
+          onKeypress: function ($viewValue = '', $modelValue, scope, key) {
+            const field = scope.form[scope.name];
+            const realViewValue = field.$viewValue || '';
+            const showInfo = (field.$untouched || (field.$touched && field.$valid));
+            if(showInfo && key.charCode && realViewValue.length === scope.options.templateOptions.maxlength) {
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -252,6 +262,7 @@ const formFields = [
           },
           info: 'This field can not be more than 12 characters long'
         },
+        parsers: [toUpperCase],
         validators: {
           vendorID: {
             expression: function (viewValue = '', modelValue, scope) {
@@ -262,9 +273,9 @@ const formFields = [
           checkValid: {
             expression: function (viewValue = '', modelValue, scope) {
               const value = modelValue || viewValue;
-              return /[A-Z0-9]{1,12}/.test(value);
+              return /^[A-Z]{2}[0-9]{8}$|^[A-Z]{2}[0-9]{5}$|^[A-Z][0-9]{6}$|^[0-9]{8}$|^[A-Z][0-9]{10}$|^[0-9]{11}$/.test(value);
             },
-            message: '$viewValue + " is not a valid Claim Number"'
+            message: '"This not a valid Claim Number"'
           }
         },
         data: {showInfo: false},
@@ -287,7 +298,22 @@ const formFields = [
               return (moment(viewValue, validDateFormats, true) > moment().startOf('day')) ? false : true;
             },
             message: '"Can not be a future date"'
+          },
+          checkIfAfterDOB: {
+            expression: function (viewValue = '', modelValue = '', scope) {
+              if(!moment(viewValue, validDateFormats, true).isValid()) return true;
+              //Force to set Touched flag when the date cames from datepicker otherwise it remains untouched
+              scope.form.DOA.$setTouched();
+              //scope.form.DOA.$validate();
+              const wrongDate = moment(scope.form.DOA.$viewValue, validDateFormats, true) < moment(scope.form.DOB.$viewValue, 'DD/MM/YYYY', true);
+              console.info(scope);
+              return !wrongDate;
+            },
+            message: '"Date of accident should be after Date of birth. Fix it and Click on Submit"'
           }
+        },
+        extras: {
+          validateOnModelChange: true
         }
       },
       {
@@ -301,8 +327,8 @@ const formFields = [
           required: false,
           minlength: 1,
           maxlength: 255,
-          onKeypress: function ($viewValue = '', $modelValue, scope) {
-            if ($viewValue.length === scope.options.templateOptions.maxlength) {
+          onKeypress: function ($viewValue = '', $modelValue, scope, key) {
+            if (key.charCode && $viewValue.length === scope.options.templateOptions.maxlength) {
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -334,7 +360,7 @@ const formFields = [
         id: 'invoiceNumber',
         key: 'invoiceNumber',
         type: 'input',
-        className: 'col-xs-4',
+        className: 'col-xs-12',
         templateOptions: {
           type: 'text',
           disabled: true,
@@ -342,10 +368,10 @@ const formFields = [
         }
       },
       {
-        id: 'InvoiceReference',
-        key: 'InvoiceReference',
+        id: 'invoiceReference',
+        key: 'invoiceReference',
         type: 'input',
-        className: 'col-xs-4',
+        className: 'col-xs-6',
         templateOptions: {
           type: 'text',
           label: 'Invoice Reference',
@@ -353,8 +379,8 @@ const formFields = [
           required: false,
           minlength: 1,
           maxlength: 20,
-          onKeypress: function($viewValue = '', $modelValue, scope) {
-            if($viewValue.length === scope.options.templateOptions.maxlength ) {
+          onKeypress: function($viewValue = '', $modelValue, scope, key) {
+            if(key.charCode && $viewValue.length === scope.options.templateOptions.maxlength ) {
               scope.options.data.showInfo = true;
             } else {
               scope.options.data.showInfo = false;
@@ -386,7 +412,7 @@ const formFields = [
           required: true,
           label: 'Invoice Date',
           value: moment().format('DD/MM/YYYY'),
-          info: 'invoices over 12 months old may need further ACC approval to release payment'
+          info: 'Invoices over 12 months old may need further ACC approval to release payment'
         },
         validators: {
           checkOldDate: {
@@ -405,7 +431,16 @@ const formFields = [
               return (moment(viewValue, validDateFormats, true) > moment().startOf('day')) ? false : true;
             },
             message: '"Can not be a future date"'
+          },
+          checkIfAfterDOB: {
+            expression: function (viewValue = '', modelValue, scope) {
+              return (moment(viewValue, validDateFormats, true) < moment(scope.model.DOB, 'DD/MM/YYYY', true)) ? false : true;
+            },
+            message: '"Date of Invoice should be after Date of birth. Fix it and Click on Submit"'
           }
+        },
+        extras: {
+          validateOnModelChange: true
         },
         data: {showInfo: false}
       }
@@ -443,8 +478,8 @@ const formFields = [
                 required: true,
                 minlength: 1,
                 maxlength: 10,
-                onKeypress: function($viewValue = '', $modelValue, scope) {
-                  if($viewValue.length === scope.options.templateOptions.maxlength ) {
+                onKeypress: function($viewValue = '', $modelValue, scope, key) {
+                  if(key.charCode && $viewValue.length === scope.options.templateOptions.maxlength ) {
                     scope.options.data.showInfo = true;
                   } else {
                     scope.options.data.showInfo = false;
@@ -476,8 +511,8 @@ const formFields = [
                 required: false,
                 minlength: 1,
                 maxlength: 6,
-                onKeypress: function($viewValue = '', $modelValue, scope) {
-                  if($viewValue.length === scope.options.templateOptions.maxlength ) {
+                onKeypress: function($viewValue = '', $modelValue, scope, key) {
+                  if(key.charCode && $viewValue.length === scope.options.templateOptions.maxlength ) {
                     scope.options.data.showInfo = true;
                   } else {
                     scope.options.data.showInfo = false;
@@ -508,8 +543,8 @@ const formFields = [
                 required: false,
                 minlength: 1,
                 maxlength: 255,
-                onKeypress: function($viewValue = '', $modelValue, scope) {
-                  if($viewValue.length === scope.options.templateOptions.maxlength ) {
+                onKeypress: function($viewValue = '', $modelValue, scope, key) {
+                  if(key.charCode && $viewValue.length === scope.options.templateOptions.maxlength ) {
                     scope.options.data.showInfo = true;
                   } else {
                     scope.options.data.showInfo = false;
@@ -537,5 +572,9 @@ const formFields = [
     }
   }*/
 ];
+
+function toUpperCase(value) {
+  return (value || '').toUpperCase();
+}
 
 export default formFields;
