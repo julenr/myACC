@@ -7,10 +7,7 @@ import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
 import 'babel-polyfill';
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
-import formly from 'angular-formly';
 import ngAnimate from 'angular-animate';
-import ngMessages from 'angular-messages';
-import formlyTemplateBootstrap from 'angular-formly-templates-bootstrap';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap-datepicker';
 import ngRedux from 'ng-redux';
@@ -29,12 +26,10 @@ angular
     const app = angular.module(appName,
       [
         uirouter,
-        formly,
         ngAnimate,
-        ngMessages,
-        formlyTemplateBootstrap,
         ngRedux,
-        root
+        root,
+        businessCustomer
       ])
       .config(routing);
 

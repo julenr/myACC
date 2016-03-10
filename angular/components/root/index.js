@@ -1,5 +1,8 @@
 import angular from 'angular';
+import formly from 'angular-formly';
 import uirouter from 'angular-ui-router';
+import ngMessages from 'angular-messages';
+import formlyTemplateBootstrap from 'angular-formly-templates-bootstrap';
 import moment from 'moment';
 
 import routing from './root.routes';
@@ -7,7 +10,10 @@ import RootController from './root.controller';
 
 const validDateFormats = ['DD/MM/YYYY', 'DD-MM-YYYY', 'DD.MM.YYYY', 'DD.MM.YY', 'DD/MM/YY', 'DD-MM-YY'];
 
-export default angular.module('root', [uirouter])
+export default angular.module('root',
+  [
+    uirouter, formly, formlyTemplateBootstrap, ngMessages
+  ])
   .config(routing)
   .run(function(formlyConfig, formlyValidationMessages) {
     'ngInject';
@@ -47,7 +53,7 @@ export default angular.module('root', [uirouter])
           }
         }
       },
-      link: function() {
+      link: function(scope) {
         $('.input-group.date').datepicker({
           format: 'dd/mm/yyyy',
           daysOfWeekHighlighted: '0',
@@ -60,6 +66,10 @@ export default angular.module('root', [uirouter])
           showOnFocus: false,
           assumeNearbyYear: true
         });
+        //Force to set Touched flag when the date cames from datepicker otherwise it remains untouched
+        $('.input-group.date').datepicker().on('show', (target) => {
+          scope.form[target.currentTarget.attributes['component-id'].value].$setTouched();
+        });
       },
       controller: function ($scope, $timeout){
         'ngInject';
@@ -69,7 +79,7 @@ export default angular.module('root', [uirouter])
           },0);
         };
       },
-      template: `<div class="input-group date" data-provide="datepicker" >
+      template: `<div class="input-group date" data-provide="datepicker" component-id="{{options.key}}">
                   <input type="text"
                     ng-model="model[options.key]"
                     value="{{to.value}}"

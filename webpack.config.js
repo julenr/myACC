@@ -297,7 +297,10 @@ if(TARGET === 'test' || TARGET === 'tdd') {
         jQuery: "jquery",
         "window.jQuery": "jquery"
       }),
-      new webpack.DefinePlugin({'__DEV__': JSON.stringify(JSON.parse('true'))}),
+      new webpack.DefinePlugin({
+        '__DEV__': JSON.stringify(JSON.parse('true')),
+        '__BOOTSTRAP__': JSON.stringify(JSON.parse('true'))
+      }),
       new ExtractTextPlugin('styles.[chunkhash].css')
     ]
   })

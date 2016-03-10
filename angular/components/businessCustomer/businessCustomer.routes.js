@@ -1,4 +1,4 @@
-import template from './businessCustomer.template.jade';
+import template from './businessCustomer.template.html';
 
 export default function routes($stateProvider) {
   'ngInject';
@@ -9,6 +9,6 @@ export default function routes($stateProvider) {
       menu: 'Business Customer',
       controller: 'BusinessCustomerController',
       controllerAs: 'businessCustomer'
-    });
+  });
 }
 

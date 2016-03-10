@@ -33,7 +33,6 @@ export default class RootController {
     };
     this.invoiceFields = formFields;
     this.options = {};
-
   }
 
   onSubmit(){

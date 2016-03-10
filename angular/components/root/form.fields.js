@@ -170,8 +170,8 @@ const formFields = [
           label: 'Date of Birth',
           value: moment().format('DD/MM/YYYY'),
           onChange: function (viewValue = '', modelValue, scope) {
-            console.log('DOB CHANGES');
             scope.form.DOA.$validate();
+            scope.form.invoiceDate.$validate();
           }
         },
         validators: {
@@ -251,6 +251,7 @@ const formFields = [
             const field = scope.form[scope.name];
             const realViewValue = field.$viewValue || '';
             const showInfo = (field.$untouched || (field.$touched && field.$valid));
+            scope.form.claimNumber.$setViewValue(realViewValue.toUpperCase()); //Force to keep uppercase behind CSS UI fake one
             if(showInfo && key.charCode && realViewValue.length === scope.options.templateOptions.maxlength) {
               scope.options.data.showInfo = true;
             } else {
@@ -302,14 +303,10 @@ const formFields = [
           checkIfAfterDOB: {
             expression: function (viewValue = '', modelValue = '', scope) {
               if(!moment(viewValue, validDateFormats, true).isValid()) return true;
-              //Force to set Touched flag when the date cames from datepicker otherwise it remains untouched
-              scope.form.DOA.$setTouched();
-              //scope.form.DOA.$validate();
               const wrongDate = moment(scope.form.DOA.$viewValue, validDateFormats, true) < moment(scope.form.DOB.$viewValue, 'DD/MM/YYYY', true);
-              console.info(scope);
               return !wrongDate;
             },
-            message: '"Date of accident should be after Date of birth. Fix it and Click on Submit"'
+            message: '"Date of accident should be after Date of birth"'
           }
         },
         extras: {
@@ -433,10 +430,12 @@ const formFields = [
             message: '"Can not be a future date"'
           },
           checkIfAfterDOB: {
-            expression: function (viewValue = '', modelValue, scope) {
-              return (moment(viewValue, validDateFormats, true) < moment(scope.model.DOB, 'DD/MM/YYYY', true)) ? false : true;
+            expression: function (viewValue = '', modelValue = '', scope) {
+              if(!moment(viewValue, validDateFormats, true).isValid()) return true;
+              const wrongDate = moment(scope.form.invoiceDate.$viewValue, validDateFormats, true) < moment(scope.form.DOB.$viewValue, 'DD/MM/YYYY', true);
+              return !wrongDate;
             },
-            message: '"Date of Invoice should be after Date of birth. Fix it and Click on Submit"'
+            message: '"Date of Invoice should be after Date of birth"'
           }
         },
         extras: {
