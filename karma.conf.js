@@ -1,4 +1,19 @@
-// Reference: http://karma-runner.github.io/0.13/config/configuration-file.html
+//
+//
+//              Created by
+//            __ _____ __    _____ _____    _____ _____    __ _____
+//         __|  |  |  |  |  |   __|   | |  | __  |     |__|  |     |
+//        |  |  |  |  |  |__|   __| | | |  |    -|  |  |  |  |  |  |
+//        |_____|_____|_____|_____|_|___|  |__|__|_____|_____|_____|
+//
+//                on 11/03/2016
+//                   isusk246@gmail.com
+//
+//
+
+
+
+
 module.exports = function karmaConfig (config) {
   config.set({
     basePath: '',

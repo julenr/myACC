@@ -1,6 +1,16 @@
-/**
- * Created by RojoJ on 19/02/2016.
- */
+//
+//
+//              Created by
+//            __ _____ __    _____ _____    _____ _____    __ _____
+//         __|  |  |  |  |  |   __|   | |  | __  |     |__|  |     |
+//        |  |  |  |  |  |__|   __| | | |  |    -|  |  |  |  |  |  |
+//        |_____|_____|_____|_____|_|___|  |__|__|_____|_____|_____|
+//
+//                on 11/03/2016
+//                   isusk246@gmail.com
+//
+//
+
 import moment from 'moment';
 
 const validDateFormats = ['DD/MM/YYYY', 'DD-MM-YYYY', 'DD.MM.YYYY', 'DD.MM.YY', 'DD/MM/YY', 'DD-MM-YY'];

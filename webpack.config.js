@@ -1,3 +1,17 @@
+//
+//
+//              Created by
+//            __ _____ __    _____ _____    _____ _____    __ _____
+//         __|  |  |  |  |  |   __|   | |  | __  |     |__|  |     |
+//        |  |  |  |  |  |__|   __| | | |  |    -|  |  |  |  |  |  |
+//        |_____|_____|_____|_____|_|___|  |__|__|_____|_____|_____|
+//
+//                on 11/03/2016
+//                   isusk246@gmail.com
+//
+//
+
+
 const path = require('path');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
