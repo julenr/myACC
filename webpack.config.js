@@ -69,7 +69,10 @@ const common = {
         include: PATHS.app
       }
     ]
-  }
+  },
+  resolve: {
+    extensions: ['', '.js']
+    }
 };
 
 if(TARGET === 'start' || !TARGET) {
@@ -88,7 +91,7 @@ if(TARGET === 'start' || !TARGET) {
 
       // parse host and port from env so this is easy
       // to customize
-      host: '10.100.65.48',
+      host: '127.0.0.1',
       port: 8085
     },
     module: {
@@ -168,7 +171,7 @@ if(TARGET === 'build' || TARGET === 'build-portal') {
       }),
       new HtmlwebpackPlugin({
         inject: false,
-        template: (TARGET === 'build') ? './templates/index.portal.ejs': './templates/index.production.ejs',
+        template: (TARGET === 'build') ? './templates/index.production.ejs': './templates/index.portal.ejs',
         filename: '../WEB-INF/jsp/index.jsp',
         jsp1: '<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>',
         jsp2: '<%@ page contentType="text/html" isELIgnored="false" import="javax.portlet.PortletSession" %>',
@@ -185,7 +188,7 @@ if(TARGET === 'build' || TARGET === 'build-portal') {
           pageViewOnLoad: true
         },
         IBMAnalytics: {
-          eluminate: 'http://libs.coremetrics.com/eluminate.js',
+          eluminate: 'https://libs.coremetrics.com/eluminate.js',
           clientID: '99999999',
           dataCollectionMethod: true,
           dataCollectionDomain: 'data.coremetrics.com',
@@ -228,6 +231,7 @@ if(TARGET === 'develop') {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
+    devtool: '#eval-source-map',
     module: {
       loaders: [
         { test: /\.less$/, loader: ExtractTextPlugin.extract('style', 'css!less'), include: PATHS.app },
@@ -275,8 +279,7 @@ if(TARGET === 'develop') {
         }
       }),
       new CopyWebpackPlugin([
-        { from: PATHS.app + '/assets/fonts', to: './assets/fonts' },
-        { from: PATHS.app + '/assets/images', to: './assets/images' }
+        { from: PATHS.app + '/assets', to: './assets/' }
       ])
     ]
   });
@@ -317,5 +320,5 @@ if(TARGET === 'test' || TARGET === 'tdd') {
       }),
       new ExtractTextPlugin('styles.[chunkhash].css')
     ]
-  })
+  });
 }

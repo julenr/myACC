@@ -14,8 +14,8 @@
 
 import angular from 'angular';
 
-import CustomerService from './customer.service';
+import InvoiceService from './invoice.service';
 
-export default angular.module('services.customer-service', [])
-  .service('CustomerService', CustomerService)
+export default angular.module('invoice.service', [])
+  .service('InvoiceService', InvoiceService)
   .name;

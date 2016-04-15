@@ -14,7 +14,10 @@
 
 if(__BOOTSTRAP__) { //Only add Bootstrap for local development. WebSphere already has added it
   require ('bootstrap/dist/css/bootstrap.css');
+  require ('./assets/css/design.css');
+  require ('./assets/css/ebusiness.css');
 }
+
 import './styles/screen.less';
 import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
 
@@ -28,9 +31,9 @@ import ngRedux from 'ng-redux';
 
 import routing from './index.config';
 import root from './components/root';
-import businessCustomer from './components/businessCustomer';
-import navBar from './components/navbar';
-import customerService from './services/customer';
+// import businessCustomer from './components/businessCustomer';
+// import navBar from './components/navbar';
+import invoiceService from './services/invoice';
 
 angular
   .element(document)
@@ -43,7 +46,7 @@ angular
         ngAnimate,
         ngRedux,
         root,
-        businessCustomer
+        invoiceService
       ])
       .config(routing);
 

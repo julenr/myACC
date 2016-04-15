@@ -16,7 +16,8 @@ import moment from 'moment';
 
 export default class RootController {
   /*@ngInject*/
-  constructor() {
+  constructor(InvoiceService) {
+    this.invoiceService = InvoiceService;
     this.sessionValue = (sessionStorage.getItem('ACC')) ?
       JSON.parse(sessionStorage.getItem('ACC'))
       :
@@ -29,19 +30,9 @@ export default class RootController {
 
     this.invoiceModel = {
       invoiceDate: moment().format('DD/MM/YYYY'),
-      invoiceNumber: 'ACC567815',
-      DOB: '',
+      invoiceNumber: 'ACC567816',
       treatmentDetails: [
-        {
-          investmentName:'abc',
-          investmentDate:(new Date()).toDateString(),
-          stockIdentifier:''
-        },
-        {
-          investmentName:'abc',
-          investmentDate:(new Date()).toDateString(),
-          stockIdentifier:''
-        }
+        {feeBasedOn: 'Time'}
       ]
     };
     this.invoiceFields = formFields;
@@ -50,6 +41,7 @@ export default class RootController {
 
   onSubmit(){
     console.log('MODEL ', this.invoiceModel);
+    this.invoiceService.sendInvoice(this.invoiceModel);
   }
 
   clearSessionStorage(){

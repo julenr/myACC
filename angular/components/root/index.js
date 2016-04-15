@@ -67,7 +67,7 @@ export default angular.module('root',
         }
       },
       link: function(scope) {
-        $('.input-group.date').datepicker({
+        jQuery('.input-group.date').datepicker({
           format: 'dd/mm/yyyy',
           daysOfWeekHighlighted: '0',
           autoclose: true,
@@ -80,8 +80,9 @@ export default angular.module('root',
           assumeNearbyYear: true
         });
         //Force to set Touched flag when the date cames from datepicker otherwise it remains untouched
-        $('.input-group.date').datepicker().on('show', (target) => {
-          scope.form[target.currentTarget.attributes['component-id'].value].$setTouched();
+        jQuery('.input-group.date').datepicker().on('show', (target) => {
+          const elementID = target.currentTarget.firstElementChild.id;
+          scope.form[elementID].$setTouched();
         });
       },
       controller: function ($scope, $timeout){
@@ -109,29 +110,46 @@ export default angular.module('root',
 
     formlyConfig.setType({
       name: 'treatmentDetail',
-      template: `<div>
-                  <!--loop through each element in model array-->
-                  <div class="{{hideRepeat}}">
-                    <div class="repeatsection" ng-repeat="element in model[options.key]" ng-init="fields = copyFields(to.fields)">
-                    <formly-form fields="to.fields" model="element" form="form">
-                    </formly-form>
-                    <div style="margin-bottom:20px;">
-                    <button type="button" class="btn btn-sm btn-danger" ng-click="model[options.key].splice($index, 1)">
-                    Remove
-                    </button>
-                    </div>
-                    <hr>
-                    </div>
-                    <p class="AddNewButton">
-                    <button type="button" class="btn btn-primary" ng-click="addNew()" >{{to.btnText}}</button>
-                  </p>
-                </div>`,
+      template: `<!--loop through each element in model array-->
+                  <div class="repeatsection" ng-repeat="element in model[options.key]" ng-init="fields=copyFields(to.fields, $index)">
+                       <h3>Concept&nbsp;{{$index + 1}}</h3>
+                      <formly-form fields="fields" model="element" form="form"></formly-form>
+                      <div class="repeatsection-buttons">
+                          <!--<button type="button" class="btn btn-sm btn-danger" ng-click="model[options.key].splice($index, 1)">-->
+                              <!--Remove-->
+                          <!--</button>-->
+                          <!--<button type="button" class="btn btn-sm btn-primary" ng-click="addNew(true)" >Duplicate</button>-->
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>
+                  <!--<p class="AddNewButton">-->
+                      <!--<button type="button" class="btn btn-primary" ng-click="addNew(false)" >{{to.btnText}}</button>-->
+                  <!--</p>-->
+                 `,
       controller: function ($scope){
         'ngInject';
-        function addNew() {
+        $scope.formOptions = {formState: $scope.formState};
+        $scope.addNew = addNew;
+        $scope.copyFields = copyFields;
+
+        function copyFields(fields, index) {
+          fields = angular.copy(fields);
+          fields = fields[0].fieldGroup.map((field, idx)=> {
+            field.id = `${field.key}_${index}`;
+            return field;
+          });
+          return fields;
+        }
+
+        function addNew(duplicate = false) {
           $scope.model[$scope.options.key] = $scope.model[$scope.options.key] || [];
-          var repeatsection = $scope.model[$scope.options.key][0];
-          repeatsection.push(repeatsection);
+          var repeatsection = $scope.model[$scope.options.key];
+          var lastSection = repeatsection[repeatsection.length - 1];
+          var newsection = {};
+          if(duplicate) {
+            newsection = angular.copy(lastSection);
+          }
+          repeatsection.push(newsection);
         }
       }
     });

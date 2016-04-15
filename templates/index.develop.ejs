@@ -1,21 +1,25 @@
 <!doctype html>
 <html>
     <head>
+        <base href="\" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <title><%= htmlWebpackPlugin.options.title || 'Webpack App'%></title>
 
         <% if (htmlWebpackPlugin.files.favicon) { %>
         <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon %>">
         <% } %>
+
         <% if (htmlWebpackPlugin.options.mobile) { %>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <% } %>
+
+        <link rel="stylesheet" type="text/css" href="./assets/css/font-awesome.min.css">
 
         <% for (var css in htmlWebpackPlugin.files.css) { %>
         <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
         <% } %>
 
-        <base href="\" />
     </head>
     <body>
         <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
@@ -38,11 +42,103 @@
             <![endif]-->
         <% } %>
 
-        <!--<div data-nav-bar title="myACC"></div>-->
-        <div class="container">
-            <br/>
-            <ui-view></ui-view>
+        <!-- WRAPER IMPLEMENTED EMULATING WEB SPHERE THEME -->
+        <div class="container-fluid">
+            <div class="masthead clearfix">
+                <ul class="nav nav-pills pull-right">
+                    <li class="nav-pill-txt">Welcome wpadmin</li>
+                </ul>
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a id="utb-edit-mode-quicklink" href="javscript:void 0">Edit Mode</a>
+                    </li>
+                </ul>
+            </div>
+            <nav class="navbar">
+                <div class="container-fluid navbar-container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#main-menu" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand hidden-md hidden-lg" href="http://www.acc.co.nz">
+                            <img class='brand-img' src="./assets/images/acc-logo-mobile.png" alt="ACC">
+                            <div id="main-nav-titlebar" class="nav titlebar">
+                                <h3 class="welcome">eBusiness Gateway</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="main-menu">
+                        <a target="_blank" class="brand-image-lg-wrapper visible-md visible-lg" href="http://www.acc.co.nz">
+                            <img alt="ACC" class="brand-image-lg" src="./assets/images/acc-logo.png">
+                        </a>
+                        <!-- eChannelPlatformUpgrade - added main heading for app -->
+                        <div class="navbar-brand visible-md visible-lg">
+                            <h3 class="welcome">eBusiness Gateway</h3>
+                        </div>
+                        <ul id="main-nav" class="nav navbar-nav pull-right">
+                            <li><a href="javscript:void 0"><span lang="en" dir="ltr">Claim Lodgement </span><span class="sr-only">(current)</span></a></li>
+                            <li><a href="javscript:void 0"><span lang="en" dir="ltr">Accredited Employer</span></a></li>
+                            <li class="active" ><a href="javscript:void 0"><span lang="en" dir="ltr">Invoicing</span></a></li>
+                            <li><a href="javscript:void 0"><span lang="en" dir="ltr">Administration</span></a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+
+
+                <!-- eChannelPlatformUpgrade - changes to secondary level navigation -->
+                <!-- reserve the old navigation for EBG --><!-- eChannelPlatformUpgrade - changes to tertiary navigation -->
+                <div class="ter-nav-wrapper">
+                    <a href="javscript:void 0" class="help-btn">
+                        <span>Help <i class="fa fa-question-circle fa-lg"></i></span>
+                    </a>
+                    <div class="ter-nav-container">
+                        <ul id="tertiary-nav" class="">
+                            <li class="active"><a href="javscript:void 0"><div>Create invoice</div></a></li>
+                            <li><a href="javscript:void 0"><div>Upload invoices</div></a></li>
+                            <li><a href="javscript:void 0"><div>Invoice status</div></a></li>
+                            <li><a href="javscript:void 0"><div>Invoice submissions</div></a></li>
+                            <li><a href="javscript:void 0"><div>Payment advice</div></a></li>
+                            <li><a href="javscript:void 0"><div>Claim status</div></a></li>
+                        </ul>
+                        <div class="old-clearfix"></div>
+                    </div>
+                </div>
+            </nav>
         </div>
+        <!-- main content-->
+        <div class="container-fluid">
+            <div class="pace texture">
+                <ui-view></ui-view>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    <a href="http://www.acc.co.nz/terms-of-use/index.htm" target="_blank">Terms of Use</a>
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <a href="http://www.acc.co.nz/privacy/privacy-notice/WPC133788" target="_blank">Privacy Notice</a>
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <a href="http://www.acc.co.nz/disclaimer-and-copyright/index.htm?ref=footer" target="_blank">&copy; Disclaimer and Copyright</a>
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <a href="http://www.acc.co.nz/contact-us-and-feedback/index.htm?ref=footer" target="_blank">Contact Us</a>
+                </p>
+                <p class="footer-govt">
+                    For more information on government services go to
+                    <a class="nz-govt-link" href="http://newzealand.govt.nz"
+                       title="newzealand.govt.nz - connecting you to New Zealand central &amp; local government services" target="_blank">
+                        <img src="./assets/images/govt-logo.png" alt="New Zealand Government logo" />
+                    </a>
+                </p>
+            </div>
+        </footer>
 
         <% if (htmlWebpackPlugin.options.window) { %>
         <script>
@@ -51,9 +147,6 @@
             <% } %>
         </script>
         <% } %>
-
-        <% if (htmlWebpackPlugin.options.devServer) { %>
-        <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
-        <% } %>
+        <script src="./assets/js/jquery.min.js"></script>
     </body>
 </html>

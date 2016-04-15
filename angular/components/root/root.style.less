@@ -1,8 +1,28 @@
 .formly-field:not(.formly-field-group){
-  /* for example, give some space between your fields */
   width: 270px;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
+
+.formly-field.formly-field-treatmentDetail {
+  width: 100%;
+}
+
+.formly-field.group-label {
+  clear: both;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.formly-field.comments {
+  width: 100%;
+  min-width: 270px;
+}
+@media only screen and (min-width: 610px){
+  .formly-field.comments {
+    width: 540px;
+  }
+}
+
 
 /* messages fanciness */
 .my-messages {
@@ -19,7 +39,7 @@
   position: absolute;
   width: 100%;
   color: #a94442;
-  background-color: white;
+  background-color: #f7f7f7;
 }
 
 .info {
@@ -57,22 +77,119 @@
   top: -10px;
 }
 
-#claimNumber {
-  text-transform: uppercase;
+.form-container {
+  background-color: #f7f7f7;
+  padding: 20px;
 }
 
-#claimNumber::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-  text-transform: none !important;
+
+//TREATMENT TABLE FIELDS
+
+.repeatsection {
+  background-color: #EEE;
+  border-radius: 4px;
+  padding: 15px;
 }
-#claimNumber:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  text-transform: none !important;
+
+.repeatsection .some-message {
+  background-color: #EEE;
 }
-#claimNumber::-moz-placeholder { /* Mozilla Firefox 19+ */
-  text-transform: none !important;
+
+
+.repeatsection-buttons {
+  float: right;
+  clear: both;
 }
-#claimNumber:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  text-transform: none !important;
+
+.treatment-field input, .treatment-field select, .treatment-field textarea,
+.treatment-field .input-group-addon {
+  border-radius: 0 !important;
 }
-#claimNumber:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-  text-transform: none !important;
+.treatment-field input:first-child {
+  border-right: 0 solid !important;
+}
+.treatment-field .input-group-addon {
+  background-color: white;
+}
+
+.treatment-field label {
+  width: 100% !important;
+  background-color: black;
+  margin-bottom: 0;
+  color: white !important;
+  padding: 8px 5px 5px 5px !important;
+  border-right: 1px solid grey !important;
+  border-left: 1px solid grey !important;
+}
+
+.formly-field.treatment-date, .formly-field.provider-id, .formly-field.facility, .formly-field.service-codes,
+.formly-field.feeBasedOn, .formly-field.fee {
+  width: 270px;
+}
+
+.formly-field.treatmentsComments {
+  width: 100%;
+}
+
+// Mobile First
+@media screen and(max-width: 450px) {
+  .repeatsection {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .treatment-field {
+    padding-left: 0;
+  }
+
+  .formly-field.treatment-date, .formly-field.provider-id, .formly-field.facility, .formly-field.service-codes,
+  .formly-field.feeBasedOn, .formly-field.fee, .formly-field.treatmentsComments {
+    width: 250px;
+  }
+}
+
+@media screen and(min-width: 991px){
+  .treatment-field.formly-field:not(.formly-field-group){
+    margin-bottom: 50px;
+  }
+  .repeatsection {
+    display: inline-block;
+    margin-bottom: 30px;
+  }
+  .formly-field.formly-field-treatmentDetail {
+    width: 10%; //Just to make it flexible
+  }
+
+  .treatment-field {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .formly-field.treatment-date {
+    width: 160px;
+  }
+
+  .formly-field.provider-id {
+    width: 150px;
+  }
+
+  .formly-field.facility {
+    width: 150px;
+  }
+
+  .formly-field.service-codes {
+    width: 200px;
+  }
+
+  .formly-field.feeBasedOn {
+    width: 110px;
+  }
+
+  .formly-field.fee {
+    width: 110px;
+  }
+
+  .formly-field.treatmentsComments {
+    width: 880px;
+  }
 }

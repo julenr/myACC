@@ -1,17 +1,22 @@
 <!doctype html>
 <html>
     <head>
+        <base href="/">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title><%= htmlWebpackPlugin.options.title || 'Webpack App'%></title>
+
         <% if (htmlWebpackPlugin.files.favicon) { %>
         <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon %>">
         <% } %>
         <% if (htmlWebpackPlugin.options.mobile) { %>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <% } %>
+
         <% for (var css in htmlWebpackPlugin.files.css) { %>
         <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
         <% } %>
-        <base href="/">
+
     </head>
     <body>
       <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
@@ -34,9 +39,7 @@
           <![endif]-->
       <% } %>
 
-      <!--<div data-nav-bar title="myACC"></div>-->
-      <div class="container">
-          <br/>
+      <div class="container-fluid">
           <ui-view></ui-view>
       </div>
 

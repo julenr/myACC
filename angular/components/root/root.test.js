@@ -13,6 +13,7 @@
 
 import RootTemplate from './root.template.html';
 import RootController from './root.controller';
+import InvoiceSrv from '../../services/invoice/invoice.service';
 
 describe('Root main component', () => {
 
@@ -24,7 +25,8 @@ describe('Root main component', () => {
   });
 
   describe('Invoice base Controller', () => {
-    const ctrl = new RootController();
+    const invoiceService = new InvoiceSrv();
+    const ctrl = new RootController(invoiceService);
     it('has invoiceFields and invoiceModel objects ', () => {
       expect(ctrl).to.have.property('invoiceFields');
       expect(ctrl).to.have.property('invoiceModel');
@@ -32,34 +34,33 @@ describe('Root main component', () => {
   });
 
   describe('Invoice formly form', function () {
-    beforeEach(angular.mock.module('root'));
     var basicTemplate = '<formly-form model="model" fields="fields" form="form" options="options"></formly-form>';
-    var $compile, scope, el, node, isolateScope, field, fieldNode, fieldScope, ctrl;
+    var $compile, scope, el, node, isolateScope, ctrl;
 
-    beforeEach(inject(function (_$compile_, $rootScope, $controller) {
+    beforeEach(angular.mock.module('root'));
+    beforeEach(angular.mock.module('invoice.service'));
+
+    beforeEach(inject(function (_$compile_, $rootScope, $controller, InvoiceService) {
       $compile = _$compile_;
       scope = $rootScope.$new();
-      ctrl = $controller('RootController', scope);
+      ctrl = $controller('RootController', { $scope: scope, InvoiceService: InvoiceService} );
       scope.model = ctrl.invoiceModel;
       scope.fields = ctrl.invoiceFields;
+      compileAndSetupStuff();
     }));
 
     it('should compile', function () {
-      compileAndSetupStuff();
       expect(scope).to.exist;
     });
 
     describe('ACC Vendor ID field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.vendorID).to.exist;
       });
       it('is required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.vendorID.$valid).to.be.false;
       });
       it('is valid entering \'AAAA1234\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.vendorID.$setViewValue('AAAA1234');
         expect(isolateScope.form.vendorID.$valid).to.be.true;
       });
@@ -67,26 +68,21 @@ describe('Root main component', () => {
 
     describe('ACC Contract Number field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.contractID).to.exist;
       });
       it('is not required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.contractID.$valid).to.be.true;
       });
     });
 
     describe('First Name field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.firstName).to.exist;
       });
       it('is required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.firstName.$valid).to.be.false;
       });
       it('is valid entering \'AAAA1234\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.firstName.$setViewValue('AAAA1234');
         expect(isolateScope.form.firstName.$valid).to.be.true;
       });
@@ -94,15 +90,12 @@ describe('Root main component', () => {
 
     describe('Surname field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.surname).to.exist;
       });
       it('is required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.surname.$valid).to.be.false;
       });
       it('is valid entering \'AAAA1234\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.surname.$setViewValue('AAAA1234');
         expect(isolateScope.form.surname.$valid).to.be.true;
       });
@@ -110,15 +103,12 @@ describe('Root main component', () => {
 
     describe('Date of birth field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.DOB).to.exist;
       });
       it('is required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.DOB.$valid).to.be.false;
       });
       it('is valid entering \'01/01/2016\' \'01.01.2016\' \'01-01-2016\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.DOB.$setViewValue('01/01/2016');
         expect(isolateScope.form.DOB.$valid).to.be.true;
         isolateScope.form.DOB.$setViewValue('01.01.2016');
@@ -127,7 +117,6 @@ describe('Root main component', () => {
         expect(isolateScope.form.DOB.$valid).to.be.true;
       });
       it('is invalid entering a future date', function () {
-        compileAndSetupStuff();
         isolateScope.form.DOB.$setViewValue('01/01/2100');
         expect(isolateScope.form.DOB.$valid).to.be.false;
       });
@@ -135,20 +124,16 @@ describe('Root main component', () => {
 
     describe('National Health Index Number field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.NHI).to.exist;
       });
       it('is not required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.NHI.$valid).to.be.true;
       });
       it('is valid entering \'AAA1234\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.NHI.$setViewValue('AAA1234');
         expect(isolateScope.form.NHI.$valid).to.be.true;
       });
       it('is invalid entering \'FFFFFFF\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.NHI.$setViewValue('FFFFFFF');
         expect(isolateScope.form.NHI.$valid).to.be.false;
       });
@@ -156,20 +141,16 @@ describe('Root main component', () => {
 
     describe('ACC Claim Number field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.claimNumber).to.exist;
       });
       it('is required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.claimNumber.$valid).to.be.false;
       });
       it('is valid entering \'A1234567890\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.claimNumber.$setViewValue('A1234567890');
         expect(isolateScope.form.claimNumber.$valid).to.be.true;
       });
       it('is invalid entering \'FFFFFFFFFFF\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.claimNumber.$setViewValue('FFFFFFFFFFF');
         expect(isolateScope.form.claimNumber.$valid).to.be.false;
       });
@@ -177,15 +158,12 @@ describe('Root main component', () => {
 
     describe('Date of accident field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.DOA).to.exist;
       });
       it('is not required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.DOA.$valid).to.be.true;
       });
       it('is valid entering \'01/01/2016\' \'01.01.2016\' \'01-01-2016\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.DOA.$setViewValue('01/01/2016');
         expect(isolateScope.form.DOA.$valid).to.be.true;
         isolateScope.form.DOA.$setViewValue('01.01.2016');
@@ -194,12 +172,10 @@ describe('Root main component', () => {
         expect(isolateScope.form.DOA.$valid).to.be.true;
       });
       it('is invalid entering a future date', function () {
-        compileAndSetupStuff();
         isolateScope.form.DOA.$setViewValue('01/01/2100');
         expect(isolateScope.form.DOA.$valid).to.be.false;
       });
       it('is invalid entering a date before DOB', function () {
-        compileAndSetupStuff();
         isolateScope.form.DOB.$setViewValue('01/01/2016');
         isolateScope.form.DOA.$setViewValue('01/01/2015');
         expect(isolateScope.form.DOA.$valid).to.be.false;
@@ -208,44 +184,36 @@ describe('Root main component', () => {
 
     describe('Additional Comments field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.additionalComments).to.exist;
       });
       it('is not required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.additionalComments.$valid).to.be.true;
       });
     });
 
     describe('Invoice Number field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.invoiceNumber).to.exist;
       });
     });
 
     describe('Invoice Reference field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.invoiceReference).to.exist;
       });
       it('is not required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.invoiceReference.$valid).to.be.true;
       });
     });
 
     describe('Invoice Date field', function () {
       it('should exist', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.invoiceDate).to.exist;
       });
       it('is required', function () {
-        compileAndSetupStuff();
         expect(isolateScope.form.invoiceDate.$valid).to.be.false;
       });
       it('is valid entering \'01/01/2016\' \'01.01.2016\' \'01-01-2016\'', function () {
-        compileAndSetupStuff();
         isolateScope.form.invoiceDate.$setViewValue('01/01/2016');
         expect(isolateScope.form.invoiceDate.$valid).to.be.true;
         isolateScope.form.invoiceDate.$setViewValue('01.01.2016');
@@ -254,23 +222,86 @@ describe('Root main component', () => {
         expect(isolateScope.form.invoiceDate.$valid).to.be.true;
       });
       it('is invalid entering a future date', function () {
-        compileAndSetupStuff();
         isolateScope.form.invoiceDate.$setViewValue('01/01/2100');
         expect(isolateScope.form.invoiceDate.$valid).to.be.false;
       });
       it('is invalid entering a date before DOB', function () {
-        compileAndSetupStuff();
         isolateScope.form.DOB.$setViewValue('01/01/2016');
         isolateScope.form.invoiceDate.$setViewValue('01/01/2015');
         expect(isolateScope.form.invoiceDate.$valid).to.be.false;
       });
+      it('is invalid entering a date before DOA', function () {
+        isolateScope.form.DOB.$setViewValue('01/01/2016');
+        isolateScope.form.DOA.$setViewValue('10/01/2016');
+        isolateScope.form.invoiceDate.$setViewValue('02/01/2016');
+        expect(isolateScope.form.invoiceDate.$valid).to.be.false;
+      });
+    });
+    
+    // TREATMENTS DETAILS
+    describe('Treatment Details Table', () => {
+      describe('Date field', function () {
+        it('should exist', function () {
+          expect(isolateScope.form.treatmentDate_0).to.exist;
+        });
+        it('is required', function () {
+          expect(isolateScope.form.treatmentDate_0.$valid).to.be.false;
+        });
+        it('is valid entering \'01/01/2016\' \'01.01.2016\' \'01-01-2016\'', function () {
+          setValidDates();
+          isolateScope.form.treatmentDate_0.$setViewValue('01/01/2016');
+          expect(isolateScope.form.treatmentDate_0.$valid).to.be.true;
+          isolateScope.form.treatmentDate_0.$setViewValue('01.01.2016');
+          expect(isolateScope.form.treatmentDate_0.$valid).to.be.true;
+          isolateScope.form.treatmentDate_0.$setViewValue('01-01-2016');
+          expect(isolateScope.form.treatmentDate_0.$valid).to.be.true;
+        });
+        it('is invalid entering a future date', function () {
+          setValidDates();
+          isolateScope.form.treatmentDate_0.$setViewValue('01/01/2100');
+          expect(isolateScope.form.treatmentDate_0.$valid).to.be.false;
+        });
+        it('is invalid entering a date before DOB', function () {
+          setValidDates();
+          isolateScope.form.DOB.$setViewValue('01/01/2016');
+          isolateScope.form.treatmentDate_0.$setViewValue('01/01/2015');
+          expect(isolateScope.form.treatmentDate_0.$valid).to.be.false;
+        });
+        it('is invalid entering a date before DOA', function () {
+          setValidDates();
+          isolateScope.form.DOB.$setViewValue('01/01/2016');
+          isolateScope.form.DOA.$setViewValue('10/01/2016');
+          isolateScope.form.treatmentDate_0.$setViewValue('02/01/2016');
+          expect(isolateScope.form.treatmentDate_0.$valid).to.be.false;
+        });
+      });
+
+      describe('Provider ID Field', function () {
+        it('should exist', function () {
+          expect(isolateScope.form.providerId_0).to.exist;
+        });
+        it('is not required', function () {
+          expect(isolateScope.form.providerId_0.$valid).to.be.true;
+        });
+        it('is valid entering \'AAAA1234\'', function () {
+          isolateScope.form.providerId_0.$setViewValue('AAAA1234');
+          expect(isolateScope.form.providerId_0.$valid).to.be.true;
+        });
+      });
     });
 
-    function compileAndSetupStuff(value = '') {
+    function compileAndSetupStuff() {
       el = $compile(basicTemplate)(scope);
       scope.$digest();
       node = el[0];
       isolateScope = el.isolateScope();
+    }
+
+    //Set valid dates for Date of birth, Date of accident and Date of invoice
+    function setValidDates() {
+      isolateScope.form.DOB.$setViewValue('01/01/2010');
+      isolateScope.form.DOA.$setViewValue('02/02/2011');
+      isolateScope.form.invoiceDate.$setViewValue('03/03/2017');
     }
 
   });

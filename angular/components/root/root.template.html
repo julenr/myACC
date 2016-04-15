@@ -1,5 +1,5 @@
-<div>
-    <form ng-submit="root.onSubmit()" name="root.form" >
+<div class="form-container">
+    <form ng-submit="root.onSubmit()" name="root.form" novalidate>
         <formly-form model="root.invoiceModel" fields="root.invoiceFields" options="root.options" form="root.form">
             <button id='submit-button' type="submit" class="btn btn-primary submit-button">Submit invoice to ACC</button>
         </formly-form>

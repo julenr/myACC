@@ -1,0 +1,799 @@
+/*  
+    ------------------------------------------------------
+    eChannel Platform Upgrade (TRee) assets
+    ------------------------------------------------------
+*/
+
+/* For session timeout message in the Home page */
+#index .centeredTextDiv {
+	margin: 14px;
+}
+
+/*CMS00026737: TRee - overrides gridtable_blue_WPF7.css for font-size*/
+.outputData,.outputDataRight,a.outputData:link,a.outputData:active,a.outputData:visited,.errorMessage
+	{
+	font-size: 12px !important;
+}
+
+.nav-tabs-echannel>li>a {
+	/*background: #d4e9f7;*/
+	background-image: -webkit-linear-gradient(top, rgb(3, 172, 236), #0179A7);
+	background-color: rgb(3, 172, 236);
+	background-image: -moz-linear-gradient(top, rgb(3, 172, 236), #0179A7);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(3, 172, 236)),
+		to(#0179A7));
+	background-image: -o-linear-gradient(top, rgb(3, 172, 236), #0179A7);
+	background-image: linear-gradient(to bottom, rgb(3, 172, 236), #0179A7);
+	color: white;
+}
+
+.nav-tabs-echannel>li>a>img {
+	margin-left: 5px;
+}
+
+ul.nav-tabs-echannel {
+	width: 100%;
+	table-layout: fixed;
+}
+
+ul.nav-tabs-echannel>li {
+	display: table-cell;
+}
+
+.nav-tabs-echannel>.active>a,.nav-tabs-echannel>.active>a:hover {
+	background-color: white;
+	background-image: none
+}
+
+.tab-content-echannel {
+	border-style: solid;
+	border-width: 1px;
+	border-top: 0;
+	border-color: #DBE6ED;
+}
+
+.well {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: #f5f5f5;
+	border: 1px solid #e3e3e3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.span3 {
+	/*width: 220px;*/
+	/*float:left;*/
+	margin-bottom: 10px;
+}
+
+input.span3,textarea.span3,.uneditable-input.span3 {
+	width: 200px;
+	display: inline-block;
+	height: 20px;
+	/*padding: 4px 6px;*/
+	margin-bottom: 5px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #555555;
+	vertical-align: middle;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.spanSmall {
+	width: 153px;
+	display: inline-block;
+	height: 20px;
+	/*padding: 4px 6px;*/
+	margin-bottom: 5px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #555555;
+	vertical-align: middle;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.errorSpan>img {
+	position: relative;
+	top: -0.5em;
+	right: -0.5em;
+}
+
+.section-group-small {
+	float: left;
+	/*height: 60px;*/
+	padding-top: 0.8em;
+	/*text-align: center;*/
+	width: 170px;
+}
+
+.sectionv2 {
+	padding: 0.1em;
+	text-align: left;
+	border-top: 1px;
+	border-style: solid;
+	border-color: #DBE6ED;
+}
+
+.section-group {
+	float: left;
+	/*height: 60px;*/
+	padding-top: 0.8em;
+	/*text-align: center;*/
+	width: 218px;
+}
+
+.legend60 {
+	width: 60px;
+	font-weight: bold;
+	font-size: 16px;
+	text-align: center;
+	padding-left: 2px !important;
+	background-color: white;
+	padding-right: 2px;
+}
+
+.legend145 {
+	width: 145px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	padding-left: 0;
+	padding-left: 2px !important;
+	background-color: white;
+	padding-right: 2px;
+}
+
+.errorHeader {
+	font-size: 16px;
+	text-decoration: none;
+	/*text-align: center;
+	margin-bottom: 0.5em;*/
+	font-weight: bold;
+	/*background-color: rgb(250, 250, 250);*/
+	padding-top: 0.5em;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 0.5em;
+}
+
+.errorSpan {
+	color: red;
+	padding-left: 5px !important;
+}
+
+.left {
+	float: left;
+	padding: 0.5em;
+	font-weight: bold;
+}
+
+.right {
+	float: right;
+	padding: 0.5em;
+	font-weight: bold;
+}
+
+.divRight {
+	float: right;
+	/*background-color: rgb(195, 214, 224);*/
+	width: 100%;
+	margin-bottom: 2px;
+}
+
+.divBlock {
+	display: inline-block;
+}
+
+.alignBut {
+	padding: 0.5em;
+	text-align: right;
+}
+
+.divLegend {
+	margin-top: -1.7em;
+	position: relative;
+}
+
+.divContainer {
+	display: inline-block;
+}
+
+.divContainerHidden {
+	display: none;
+}
+
+.requiredPromptNew {
+	color: red;
+	padding: 1px !important;
+}
+
+.errorMessage {
+	color: red;
+}
+
+ul.form li {
+	clear: both;
+	list-style: none;
+	margin: 0 0 .55em 0;
+	position: relative;
+}
+
+ul.form li label {
+	display: inline-block;
+	padding-right: 10px;
+}
+
+select.outputData {
+	width: auto;
+}
+
+label.runQuerySpan101 {
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 120px;
+}
+
+.fixedWidth {
+	max-width: 100px;
+}
+
+.table .table {
+	background-color: transparent;
+}
+
+.claimSummaryButtons {
+	padding-bottom: 1em;
+}
+
+.searchResultBox {
+	border: solid;
+	border-width: 1px;
+	border-color: #d1ecfa;
+	padding: .8em;
+}
+
+.resultDiv {
+	padding-top: 10px;
+}
+
+.lotusPagingP8 {
+	border: none !important;
+	padding-left: 2px !important;
+	padding-right: 2px !important;
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
+
+.lotusuiP8 {
+	height: auto;
+	background-color: #F1F3F5;
+	line-height: 2em;
+	margin-bottom: .7em;
+	border: solid;
+	border-width: 1px;
+	border-color: #ddd;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.ACC45Error-alert {
+	margin-bottom: 0;
+	margin-right: 3px;
+	padding: 12px;
+}
+
+.full-width-echannel {
+	margin-bottom: 20px;
+	margin-right: 20px;
+	margin-top: 20px;
+}
+
+.full-width-echannel-btns {
+	margin-right: 20px;
+	margin-top: -20px;
+}
+
+.portlet>ul {
+	list-style: none;
+}
+
+.portlet>ul>li {
+	margin-bottom: 0.75em;
+}
+
+.portlet>ul>li>input {
+	margin-bottom: 2px;
+}
+
+.label40 {
+	width: 40px;
+}
+
+.label120 {
+	width: 125px;
+}
+
+.label170 {
+	width: 170px;
+}
+
+.label140 {
+	width: 140px;
+}
+
+.requiredPrompt {
+	color: red;
+}
+
+.eChannel-info {
+	padding: 13px;
+	margin-top: 49px;
+	font-size: 20px !important;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+div table {
+	font-size: 12px;
+}
+
+div.section-group input[type="text"],div.section-group-small input[type="text"],div.divHead input[type="text"]
+	{
+	padding: 0 6px;
+}
+
+.input-border-red {
+	border-color: red !important;
+}
+
+.width10 {
+	width: 10%;
+}
+
+/*  
+    ------------------------------------------------------
+    overrides to bootstrap.css
+    ------------------------------------------------------
+*/
+pre {
+	background-color: transparent;
+	border: 0;
+	word-break: normal;
+	padding: 0;
+}
+
+input[readonly] {
+	cursor: pointer;
+}
+
+input[disabled] {
+	cursor: auto !important;
+}
+
+input[type="text"] {
+	margin: 0;
+	border: 1px solid #CCC;
+}
+
+input[type="radio"],input[type="checkbox"] {
+	margin: 0;
+}
+
+body {
+	font-size: 14px !important;
+}
+
+select {
+	width: 208px;
+	/*height: 24px !important;*/
+	/*min-height: 24px !important;*/
+	border: 1px solid #CCC;
+	background-color: white;
+	/*-webkit-appearance: none;*/
+	line-height: 24px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	/*background: url(../imgages/asc.gif) no-repeat right;*/
+}
+
+.form-horizontal .control-label {
+	padding: 0;
+}
+
+.span6 {
+	width: 460px !important;
+}
+
+.alert {
+	padding: 4px 35px 4px 14px;
+}
+
+td[name="InjuryGroupContainerTD"] {
+	padding: 10px;
+	background-color: #F2F7FA;
+}
+
+/* CMS00030290 eBG_UPG_SOL: Top level navigation not functioning when window width is less equal to 767px - IE8 */
+.hidden-desktop {
+	max-width: 50px;
+}
+/*  
+    ------------------------------------------------------
+    CMS00030658 eBG_UPG_SOL: add eBusiness Gateway header back into theme
+    ------------------------------------------------------
+*/
+.nav-collapse #main-nav-titlebar {
+	left: 14.2%;
+	padding-top: 6px;
+}
+
+.hidden-desktop #main-nav-titlebar {
+	margin: -40px 70px;
+	white-space: nowrap;
+}
+/*  
+    ------------------------------------------------------
+    overrides to wps/PA_FormsView/js/ibm/wfs/formportlet/ui/submission.css
+    ------------------------------------------------------
+*/
+.submission input {
+	visibility: hidden;
+}
+/*  
+    ------------------------------------------------------
+    overrides to lotusui30dojo.css
+    ------------------------------------------------------
+*/
+.dijitContentPane {
+	overflow: hidden;
+}
+/*  
+    ------------------------------------------------------
+    overrides to split_pager_default.css
+    ------------------------------------------------------
+*/
+.lotusPaging input {
+	margin: 2px 3px 4px 4px;
+}
+/*  
+    ------------------------------------------------------
+    overrides to WclBaseSkinCSS.css
+    ------------------------------------------------------
+*/
+.cb1 {
+	width: 90px;
+	margin-bottom:0;
+	background-color: white;
+}
+/*  
+    ------------------------------------------------------
+    overrides to master.css
+    ------------------------------------------------------
+*/
+.wpthemeOverflowAuto {
+	overflow: hidden;
+}
+/*  
+    ------------------------------------------------------
+    Newly added styles
+    ------------------------------------------------------
+*/
+.no-margin {
+	margin: 0;
+}
+
+div.solid {
+	border-width: 1px;
+	border-style: solid;
+	padding: 0.25cm;
+}
+/*  
+    ------------------------------------------------------
+    styles for ACC45
+    ------------------------------------------------------
+*/
+.tab-content {
+	border: 0 none !important;
+}
+
+.tab-content fieldset {
+	padding: 40px 0 10px 0;
+	border: 0 none;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.tab-content fieldset .section-group,.tab-content fieldset>.divBlock .section-group-small
+	{
+	margin-right: 10px;
+}
+
+.tab-content .alert-error {
+	background: transparent;
+	border: none;
+	font-size: 13px;
+	font-weight: 300;
+	margin: 0;
+}
+
+.tab-content .alert-error:before {
+	display: block;
+	width: 0;
+	height: 0;
+	content: "";
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 10px solid rgb(220, 0, 0);
+}
+
+#mainTab {
+	border: 0;
+}
+
+#mainTab li {
+	margin-bottom: 2px;
+}
+
+#mainTab li.active a {
+	background: rgb(0, 102, 142);
+	color: #fff;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+/*
+    ------------------------------------------------------
+    Query Claim Status nested table 
+    ------------------------------------------------------
+*/
+.query-table,.query-table td,.query-table tr,.query-table div {
+	padding: 0;
+	margin: 0 !important;
+	border: 0 none;
+	border-collapse: collapse;
+}
+
+.query-table-list-wrap>thead th {
+	background: #018bc0;
+	color: #fff;
+	padding: 12px 5px;
+}
+
+.query-table-list-wrap>tbody>tr {
+	background: #dcdcdc;
+}
+
+.query-table-list-wrap>tbody>tr>td {
+	padding: 12px 5px;
+	border-top: 1px solid #fff;
+	border-bottom: 2px solid #fff;
+}
+
+.query-table-list-wrap>tbody>tr>td>a,.query-table-list-wrap>tbody>tr>td>a:hover
+	{
+	text-decoration: none;
+}
+
+.query-content-row>td,.query-content-row>td div {
+	padding: 0 !important;
+	margin: 0 !important;
+	border: none;
+}
+
+.query-table-list>thead th {
+	background: #D6EDF5;
+	padding: 7px 5px;
+	color: #555;
+}
+
+.query-table-list>tbody td {
+	background: #F0F8FB;
+	padding: 7px 5px;
+}
+
+.query-table-list>tbody tr:nth-child(even) td {
+	background: #E6F4F8;
+}
+
+/*
+    ------------------------------------------------------
+    Applet warning  
+    ------------------------------------------------------
+*/
+.closeDown {
+	top: 4px !important;
+}
+
+/*
+    ------------------------------------------------------
+    media query fixes for data truncation
+    ------------------------------------------------------
+	*/
+@media ( max-width : 767px) {
+	/*
+    ------------------------------------------------------
+    Fix nav bar when screen width is less than 767px
+    ------------------------------------------------------
+	*/
+	.navbar {
+		margin: 0 !important;
+	}
+	.ter-nav-wrapper {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+	/*  
+    ------------------------------------------------------
+    Set minimum width for indvidual pages, so that they are not truncated when resizing window
+    ------------------------------------------------------
+	*/
+	body[id="Upload invoices"],body[id="Upload claims"],body[id="Claim Lodgement"],body[id="Invoicing"]
+		{
+		min-width: 522px;
+	}
+	body[id="Upload invoices"] .span12,body[id="Upload claims"] .span12 {
+		min-width: 520px !important;
+	}
+	body[id="Claim status"],body[id="Invoice submissions"],body[id="Invoice status"],body[id="Claim summary list"]
+		{
+		min-width: 682px;
+	}
+	body[id="Claim status"] .span12,body[id="Invoice submissions"] .span12,body[id="Invoice status"] .span12,body[id="Claim summary list"] .span12
+		{
+		min-width: 680px !important;
+	}
+	body[id="Upload AES Files"],body[id="Payment advice"] {
+		min-width: 1102px;
+	}
+	body[id="Upload AES Files"] .span12,body[id="Payment advice"] .span12 {
+		min-width: 1100px !important;
+	}
+	.input-xlarge,
+	.uneditable-input {
+	    display: inline !important;
+	}	
+}
+
+@media ( max-width : 979px) and (min-width: 768px) {
+	body[id="Upload AES Files"],body[id="Payment advice"] {
+		min-width: 1100px;
+	}
+	body[id="Upload AES Files"] .span12,body[id="Payment advice"] .span12 {
+		min-width: 1100px !important;
+	}
+	[class*="span"] {
+	  float: none;
+	}	
+}
+
+@media ( max-width : 1199px) {
+	body[id="Upload AES Files"],body[id="Payment advice"] {
+		min-width: 1100px;
+	}
+	body[id="Upload AES Files"] .container,body[id="Payment advice"] .container
+		{
+		width: 1100px !important;
+	}
+	body[id="Upload AES Files"] .span12,body[id="Payment advice"] .span12 {
+		min-width: 1100px !important;
+	}
+}
+
+@media ( min-width : 1200px) {
+	[class*="span"] {
+	  float: left !important;
+	}	
+	
+}
+
+[class*="span"] {
+	float:none;
+}
+/* IE8 fixes for minimum screen width for responsiveness - media query unsupported */
+.wptheme_ie8 .ter-nav-wrapper,.dj_ie8 .ter-nav-wrapper {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.wptheme_ie8 body[id="Upload invoices"],.wptheme_ie8 body[id="Upload claims"],.wptheme_ie8 body[id="Claim Lodgement"],.wptheme_ie8 body[id="Invoicing"]
+	{
+	min-width: 522px;
+}
+
+.dj_ie8 body[id="Claim status"],.dj_ie8 body[id="Invoice submissions"],.dj_ie8 body[id="Invoice status"],.dj_ie8 body[id="Claim summary list"]
+	{
+	min-width: 682px;
+}
+
+.dj_ie8 body[id="Upload AES Files"],.dj_ie8 body[id="Payment advice"] {
+	min-width: 1100px;
+}
+
+.dj_ie8 body[id="Upload AES Files"] .container,.dj_ie8 body[id="Payment advice"] .container
+	{
+	min-width: 1100px !important;
+}
+
+.dj_ie8 body[id="Upload AES Files"] .span12,.dj_ie8 body[id="Payment advice"] .span12
+	{
+	min-width: 1100px !important;
+}
+
+.wptheme_ie8 .navbar .in .nav>li>a,.dj_ie8 .navbar .in .nav>li>a {
+	color: white;
+}
+
+.dj_ie8 div .section-group {
+	width: 267px !important;
+}
+/*  
+------------------------------------------------------
+CMS00030759 AES upload summary list text overflows on the right border of the page
+------------------------------------------------------
+*/
+td[name="InputFile_ColumnData"],td[name="OutputFile_ColumnData"] {
+	word-break: break-all;
+}
+/*  
+------------------------------------------------------
+IE8 fixes
+------------------------------------------------------
+*/
+.help-btn span {
+	color: #B7DBEA;
+}
+/*  
+------------------------------------------------------
+IE7 fixes
+------------------------------------------------------
+*/
+.ter-nav-wrapper {
+	background-color: rgb(0, 102, 142) !important;
+}
+
+#searchForm h3 {
+	margin: 25px 0;	
+}
+
+label .span{
+	float:none;	
+}
+
+.popover{
+	width:auto;	
+}
+	
+.popover-title {
+	background-color: #f7f7f7;
+	color: inherit;
+	border-bottom: none;
+	font-weight: normal;
+}
+
+.popover-examples{
+	font-weight:normal;
+}
+
+/*DE821-CSL field misaligned*/
+.table th,
+.table td {
+  padding: 7px !important; 
+}
+.input-mini {
+  width: 50px !important;
+}
+.input-small {
+  width: 80px !important;
+}
