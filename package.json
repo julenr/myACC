@@ -29,6 +29,8 @@
     "babel-polyfill": "6.6.1",
     "bootstrap": "3.3.6",
     "bootstrap-datepicker": "1.6.0",
+    "bootstrap-timepicker": "^0.5.2",
+    "debounce-promise": "^1.1.0",
     "jquery": "2.2.1",
     "moment": "2.12.0",
     "ng-redux": "3.3.3"

@@ -1,3 +1,7 @@
+<%= htmlWebpackPlugin.options.jsp1 %>
+<%= htmlWebpackPlugin.options.jsp2 %>
+<%= htmlWebpackPlugin.options.jsp3 %>
+<%= htmlWebpackPlugin.options.jsp4 %>
 
 <% if (htmlWebpackPlugin.options.baseHref) { %>
 <base href="<%= htmlWebpackPlugin.options.baseHref %>" />
@@ -15,6 +19,7 @@
     <% for (var varName in htmlWebpackPlugin.options.window) { %>
     window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
     <% } %>
+    var globalOrganisationId = "<%= htmlWebpackPlugin.options.displyOrgID %>";
 </script>
 <% } %>
 

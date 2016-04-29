@@ -11,55 +11,57 @@
 //
 //
 
-import formFields from './form.fields';
+import formlyModel from './form.fields';
 import moment from 'moment';
 
+
 export default class RootController {
-  /*@ngInject*/
-  constructor(InvoiceService) {
-    this.invoiceService = InvoiceService;
-    this.sessionValue = (sessionStorage.getItem('ACC')) ?
-      JSON.parse(sessionStorage.getItem('ACC'))
-      :
-      'Initial session storage value';
+    /*@ngInject*/
+    constructor(InvoiceService) {
+        this.invoiceService = InvoiceService;
 
-    this.localValue = (localStorage.getItem('ACC')) ?
-      JSON.parse(localStorage.getItem('ACC'))
-      :
-      'Initial local storage value';
+        // This section is for local storage Application-State persistance
+        this.sessionValue = (sessionStorage.getItem('ACC')) ?
+            JSON.parse(sessionStorage.getItem('ACC'))
+            :
+            'Initial session storage value';
+        this.localValue = (localStorage.getItem('ACC')) ?
+            JSON.parse(localStorage.getItem('ACC'))
+            :
+            'Initial local storage value';
+        // Final local storage
 
-    this.invoiceModel = {
-      invoiceDate: moment().format('DD/MM/YYYY'),
-      invoiceNumber: 'ACC567816',
-      treatmentDetails: [
-        {feeBasedOn: 'Time'}
-      ]
-    };
-    this.invoiceFields = formFields;
-    this.options = {};
-  }
+        this.invoiceModel = {
+            invoiceDate: moment().format('DD/MM/YYYY'),
+            invoiceNumber: 'ACC567816',
+            treatmentDetails: [
+                {feeBasedOn: 'Time'}
+            ]
+        };
+        this.invoiceFields = formlyModel.formFields;
+        this.options = {};
+    }
 
-  onSubmit(){
-    console.log('MODEL ', this.invoiceModel);
-    this.invoiceService.sendInvoice(this.invoiceModel);
-  }
+    onSubmit() {
+        this.invoiceService.sendInvoice(this.invoiceModel);
+    }
 
-  clearSessionStorage(){
-    this.sessionValue = '';
-    sessionStorage.removeItem('ACC');
-  }
+    clearSessionStorage() {
+        this.sessionValue = '';
+        sessionStorage.removeItem('ACC');
+    }
 
-  clearLocalStorage(){
-    this.localValue = '';
-    localStorage.removeItem('ACC');
-  }
+    clearLocalStorage() {
+        this.localValue = '';
+        localStorage.removeItem('ACC');
+    }
 
-  saveSessionStorage() {
-    sessionStorage.setItem('ACC', JSON.stringify(this.sessionValue));
-  }
+    saveSessionStorage() {
+        sessionStorage.setItem('ACC', JSON.stringify(this.sessionValue));
+    }
 
-  saveLocalStorage() {
-    localStorage.setItem('ACC', JSON.stringify(this.localValue));
-  }
+    saveLocalStorage() {
+        localStorage.setItem('ACC', JSON.stringify(this.localValue));
+    }
 
 }

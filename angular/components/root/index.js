@@ -35,7 +35,7 @@ export default angular.module('root',
 
     formlyConfig.setWrapper({
       name: 'validation',
-      types: ['input', 'datePicker', 'textarea'],
+      types: ['input', 'datePicker', 'textarea', 'timepicker'],
       template: `<formly-transclude></formly-transclude>
         <div class="my-messages" ng-messages="fc.$error" ng-if="form.$submitted || options.formControl.$touched">
           <div id="{{options.id + 'error'}}" class="some-message" ng-message="{{ ::name }}" ng-repeat="(name, message) in ::options.validation.messages">
@@ -109,10 +109,29 @@ export default angular.module('root',
     });
 
     formlyConfig.setType({
+      name: 'timepicker',
+      link: function(scope) {
+        jQuery('.form-control.time-picker').timepicker({
+          minuteStep: 5,
+          template: 'dropdown',
+          showMeridian: false,
+          defaultTime: '00:00'
+        });
+      },
+      template: `<div class="input-group bootstrap-timepicker timepicker" component-id="{{options.key}}">
+                    <input type="text" 
+                           class="form-control time-picker"
+                           ng-model="model[options.key]"
+                    >
+                  </div>`,
+      wrapper: ['bootstrapLabel', 'bootstrapHasError']
+    });
+
+    formlyConfig.setType({
       name: 'treatmentDetail',
       template: `<!--loop through each element in model array-->
                   <div class="repeatsection" ng-repeat="element in model[options.key]" ng-init="fields=copyFields(to.fields, $index)">
-                       <h3>Concept&nbsp;{{$index + 1}}</h3>
+                       <!--<h3>Concept&nbsp;{{$index + 1}}</h3>-->
                       <formly-form fields="fields" model="element" form="form"></formly-form>
                       <div class="repeatsection-buttons">
                           <!--<button type="button" class="btn btn-sm btn-danger" ng-click="model[options.key].splice($index, 1)">-->

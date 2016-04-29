@@ -23,7 +23,6 @@
   }
 }
 
-
 /* messages fanciness */
 .my-messages {
   position: relative;
@@ -95,7 +94,6 @@
   background-color: #EEE;
 }
 
-
 .repeatsection-buttons {
   float: right;
   clear: both;
@@ -105,7 +103,7 @@
 .treatment-field .input-group-addon {
   border-radius: 0 !important;
 }
-.treatment-field input:first-child {
+.treatment-field .input-group.date input:first-child {
   border-right: 0 solid !important;
 }
 .treatment-field .input-group-addon {
@@ -123,8 +121,12 @@
 }
 
 .formly-field.treatment-date, .formly-field.provider-id, .formly-field.facility, .formly-field.service-codes,
-.formly-field.feeBasedOn, .formly-field.fee {
+.formly-field.feeBasedOn, .formly-field.distance, .formly-field.time-field, .formly-field.units, .formly-field.fee {
   width: 270px;
+}
+
+.formly-field.time-field input{
+  width: 240px !important;
 }
 
 .formly-field.treatmentsComments {
@@ -143,12 +145,12 @@
   }
 
   .formly-field.treatment-date, .formly-field.provider-id, .formly-field.facility, .formly-field.service-codes,
-  .formly-field.feeBasedOn, .formly-field.fee, .formly-field.treatmentsComments {
+  .formly-field.feeBasedOn, .formly-field.distance, .formly-field.time-field, .formly-field.units, .formly-field.fee, .formly-field.treatmentsComments {
     width: 250px;
   }
 }
 
-@media screen and(min-width: 991px){
+@media screen and(min-width: 1050px){
   .treatment-field.formly-field:not(.formly-field-group){
     margin-bottom: 50px;
   }
@@ -170,7 +172,7 @@
   }
 
   .formly-field.provider-id {
-    width: 150px;
+    width: 120px;
   }
 
   .formly-field.facility {
@@ -185,11 +187,35 @@
     width: 110px;
   }
 
+  .formly-field.units {
+    width: 105px;
+  }
+
+  .formly-field.distance {
+    width: 105px;
+  }
+
+  .formly-field.time-field, .formly-field.time-field input {
+    width: 105px !important;
+  }
+
   .formly-field.fee {
-    width: 110px;
+    width: 105px;
   }
 
   .formly-field.treatmentsComments {
-    width: 880px;
+    width: 950px;
   }
+
+  .feeBasedOn label {
+    border-right: 0 !important;
+  }
+  .feeBasedOn select {
+    border-right: 1px solid white;
+  }
+
+  .time-field label, .distance label, .units label {
+    border-left: 0 !important;
+  }
+
 }

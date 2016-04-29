@@ -91,7 +91,7 @@ if(TARGET === 'start' || !TARGET) {
 
       // parse host and port from env so this is easy
       // to customize
-      host: '127.0.0.1',
+      host: '0.0.0.0',
       port: 8085
     },
     module: {
@@ -177,6 +177,7 @@ if(TARGET === 'build' || TARGET === 'build-portal') {
         jsp2: '<%@ page contentType="text/html" isELIgnored="false" import="javax.portlet.PortletSession" %>',
         jsp3: '<%@ page import="javax.portlet.PortletRequest" %>',
         jsp4: '<portlet:defineObjects/>',
+        displyOrgID:'<%= (String)request.getAttribute("organisationId")%>',
         unsupportedBrowser: true,
         title: APP_TITLE,
         baseHref: '<%= request.getContextPath() %>',

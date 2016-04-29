@@ -55,14 +55,14 @@ describe('Root main component', () => {
 
     describe('ACC Vendor ID field', function () {
       it('should exist', function () {
-        expect(isolateScope.form.vendorID).to.exist;
+        expect(isolateScope.form.vendorId).to.exist;
       });
       it('is required', function () {
-        expect(isolateScope.form.vendorID.$valid).to.be.false;
+        expect(isolateScope.form.vendorId.$valid).to.be.false;
       });
       it('is valid entering \'AAAA1234\'', function () {
-        isolateScope.form.vendorID.$setViewValue('AAAA1234');
-        expect(isolateScope.form.vendorID.$valid).to.be.true;
+        isolateScope.form.vendorId.$setViewValue('AAAA1234');
+        expect(isolateScope.form.vendorId.$valid).to.be.true;
       });
     });
 

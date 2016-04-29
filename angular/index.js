@@ -20,6 +20,7 @@ if(__BOOTSTRAP__) { //Only add Bootstrap for local development. WebSphere alread
 
 import './styles/screen.less';
 import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
+import 'bootstrap-timepicker/css/bootstrap-timepicker.css';
 
 import 'babel-polyfill';
 import angular from 'angular';
@@ -27,6 +28,7 @@ import uirouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap-datepicker';
+import 'bootstrap-timepicker';
 import ngRedux from 'ng-redux';
 
 import routing from './index.config';

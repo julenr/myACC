@@ -128,3 +128,7 @@ Karma combined with Webpack runs all files matching *.test.js inside the angular
 
 Be sure to define your *.test.js files within their corresponding component directory. You must name the spec file like so,[name].test.js. Mocha is the testing suite and Chai is the assertion library. If you would like to change this, see karma.conf.js.
 
+If you want to connect to your local backend server make sure it is hosting on
+http://localhost:8090/api/invoicing/
+The back end service has been configured to allow CORS support.
+
